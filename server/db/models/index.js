@@ -1,4 +1,4 @@
-const User = require('./user')
+const Users = require('./users')
 const Product = require('./product')
 const Order = require('./orders')
 /**
@@ -15,7 +15,7 @@ const Order = require('./orders')
  * instead of: const User = require('../db/models/user')
  */
 module.exports = {
-  User,
+  Users,
   Product,
   Order
 }
