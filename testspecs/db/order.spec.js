@@ -1,7 +1,7 @@
 /* global describe beforeEach it */
 
 const {expect} = require('chai')
-const db = require('../../server/db/models/orders')
+const db = require('../../server/db')
 const Order = db.model('order')
 
 describe('Order model', () => {
@@ -9,9 +9,8 @@ describe('Order model', () => {
     return db.sync({force: true})
   })
 
-  describe('instanceMethods', () => {
+  describe('order quantity instance methods', () => {
     it('order quantity cannot be null', async () => {
-      // We shouldn't be able to create a order with a quantity.
       await expect(
         Order.create({
           quantity: null,
@@ -24,8 +23,9 @@ describe('Order model', () => {
         "We shouldn't be able to create a order with no quantity"
       ).to.be.rejected
     })
+  })
+  describe('shipping cost instance methods', () => {
     it('shipping cost cannot be null', async () => {
-      // We shouldn't be able to create a order without shipping cost
       await expect(
         Order.create({
           quantity: 5,
@@ -38,6 +38,8 @@ describe('Order model', () => {
         "We shouldn't be able to create a order without shipping cost"
       ).to.be.rejected
     })
+  })
+  describe('address instance methods', () => {
     it('address cannot be an empty string', async () => {
       await expect(
         Order.create({
@@ -52,4 +54,4 @@ describe('Order model', () => {
       ).to.be.rejected
     })
   })
-}) // end describe('Order model')
+})
