@@ -25,6 +25,13 @@ const Order = db.define('order', {
   },
   subtotal: {
     type: DataTypes.VIRTUAL
+  },
+  payment: {
+    type: Sequelize.STRING,
+    allowNull: false,
+    validate: {
+      isCreditCard: true
+    }
   }
 })
 

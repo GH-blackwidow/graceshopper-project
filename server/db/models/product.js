@@ -26,12 +26,12 @@ const Product = db.define('product', {
     type: Sequelize.FLOAT,
     allowNull: false
   },
-  Quantity: {
-    type: Sequelize.INTEGER,
-    allowNull: false
+  quantity: {
+    type: Sequelize.INTEGER
   },
   imgUrl: {
-    type: Sequelize.TEXT
+    type: Sequelize.TEXT,
+    allowNull: false
   },
   reviews: {
     type: Sequelize.TEXT
