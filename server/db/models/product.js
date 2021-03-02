@@ -4,24 +4,26 @@ const db = require('../db')
 const Product = db.define('product', {
   name: {
     type: Sequelize.STRING,
+    unique: true,
     allowNull: false
   },
-  description: {
-    type: Sequelize.TEXT,
-    allowNull: false
+  style: {
+    type: Sequelize.STRING
   },
-
   origin: {
-    type: Sequelize.STRING,
-    allowNull: false
+    type: Sequelize.STRING
   },
 
   alcoholContent: {
     type: Sequelize.FLOAT,
     allowNull: false
   },
+  ounces: {
+    type: Sequelize.FLOAT,
+    allowNull: false
+  },
   price: {
-    type: Sequelize.INTEGER,
+    type: Sequelize.FLOAT,
     allowNull: false
   },
   Quantity: {
@@ -29,16 +31,10 @@ const Product = db.define('product', {
     allowNull: false
   },
   imgUrl: {
-    type: Sequelize.TEXT,
-    allowNull: false
-  },
-  category: {
-    type: Sequelize.STRING,
-    allowNull: false
+    type: Sequelize.TEXT
   },
   reviews: {
-    type: Sequelize.TEXT,
-    allowNull: true
+    type: Sequelize.TEXT
   }
 })
 module.exports = Product
