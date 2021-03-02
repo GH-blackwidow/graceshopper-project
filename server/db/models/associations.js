@@ -8,3 +8,10 @@ Users.hasMany(Order)
 Order.hasOne(Users)
 Product.belongsTo(Order)
 Order.hasMany(Product)
+
+module.exports = {
+    Users,
+    Product,
+    Order
+  }
+  
