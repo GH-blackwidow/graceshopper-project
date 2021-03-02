@@ -1,6 +1,6 @@
 const Sequelize = require('sequelize')
-const {DataTypes} = require('sequelize')
 const db = require('../db')
+const {DataTypes} = require('sequelize')
 
 const Order = db.define('order', {
   quantity: {
@@ -25,6 +25,13 @@ const Order = db.define('order', {
   },
   subtotal: {
     type: DataTypes.VIRTUAL
+  },
+  payment: {
+    type: Sequelize.STRING,
+    allowNull: false,
+    validate: {
+      isCreditCard: true
+    }
   }
 })
 

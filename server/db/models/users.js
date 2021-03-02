@@ -34,28 +34,20 @@ module.exports = db.define('users', {
     }
   },
   payment: {
-    type: Sequelize.INTEGER,
-    allowNull: false,
-    validate: {
-      isCreditCard: true
-    }
+    type: Sequelize.STRING
+    // validate: {
+    //   isCreditCard: true,
+    // },
   },
   registered: {
     type: Sequelize.BOOLEAN
   },
   age: {
     type: Sequelize.INTEGER,
-    allowNull: false,
     validate: {
       min: 21
     }
   },
   password: {
     type: Sequelize.STRING
-  },
-  defaultScope: {
-    attributes: {
-      exclude: ['password']
-    }
-  }
 })
