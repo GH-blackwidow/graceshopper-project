@@ -50,10 +50,4 @@ module.exports = db.define('users', {
   },
   password: {
     type: Sequelize.STRING
-  }
-  //   defaultScope: {
-  //     attributes: {
-  //       exclude: ['password'],
-  //     },
-  //   },
 })
