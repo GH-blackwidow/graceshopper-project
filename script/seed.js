@@ -1,44 +1,97 @@
 'use strict'
-
+const faker = require('faker')
+const {green, red} = require('chalk')
 const db = require('../server/db')
-const {User} = require('../server/db/models')
+const {Product, Users} = require('../server/db/models')
 
-async function seed() {
-  await db.sync({force: true})
-  console.log('db synced!')
+const products = [
+  {
+    name: 'Bud Light',
+    alcoholContent: 4.2,
+    ounces: 12,
+    price: 2.99,
+    imgUrl:
+      'https://products2.imgix.drizly.com/ci-bud-light-b9f56e308351885e.jpeg?auto=format%2Ccompress&fm=jpg&q=20'
+  },
+  {
+    name: 'Heineken Light',
+    alcoholContent: 3.3,
+    ounces: 12,
+    price: 2.49,
+    imgUrl:
+      'https://products3.imgix.drizly.com/ci-heineken-light-ccc4c123d69f7425.jpeg?auto=format%2Ccompress&fm=jpg&q=20'
+  },
+  {
+    name: 'Blue Moon Belgian White Wheat Beer',
+    alcoholContent: 5.4,
+    ounces: 19.02,
+    price: 1.99,
+    imgUrl:
+      'https://products2.imgix.drizly.com/ci-blue-moon-belgian-white-ee35696c26860416.jpeg?auto=format%2Ccompress&fm=jpg&q=20'
+  },
+  {
+    name: 'Lagunitas IPA',
+    alcoholContent: 6.2,
+    ounces: 19.02,
+    price: 2.29,
+    imgUrl:
+      'https://products3.imgix.drizly.com/ci-lagunitas-ipa-ea3c01b7b5a23bd8.png?auto=format%2Ccompress&fm=jpg&q=20'
+  },
+  {
+    name: 'Corona Light',
+    alcoholContent: 4.1,
+    ounces: 19.02,
+    price: 2.49,
+    imgUrl:
+      'https://products0.imgix.drizly.com/ci-corona-light-7bd9c33898fb3769.jpeg?auto=format%2Ccompress&fm=jpg&q=20'
+  }
+]
 
-  const users = await Promise.all([
-    User.create({email: 'cody@email.com', password: '123'}),
-    User.create({email: 'murphy@email.com', password: '123'})
-  ])
+// const fakerProduct = [...Array(10)].map((product) => ({
+//   name: faker.lorem.word(),
+//   alcoholContent: faker.random.float({min: 2.0, max: 4.5}),
+//   ounces: 12,
+//   price: faker.commerce.price({min: 1.59, max: 4.99}),
+// }))
 
-  console.log(`seeded ${users.length} users`)
-  console.log(`seeded successfully`)
-}
+const users = [...Array(10)].map(user => ({
+  name: faker.name.firstName(),
+  email: faker.internet.email(),
+  address: faker.address.streetAddress(),
+  payment: faker.finance.creditCardNumber(),
+  age: faker.random.number({min: 21, max: 40})
+}))
 
-// We've separated the `seed` function from the `runSeed` function.
-// This way we can isolate the error handling and exit trapping.
-// The `seed` function is concerned only with modifying the database.
-async function runSeed() {
-  console.log('seeding...')
+const seed = async () => {
   try {
-    await seed()
+    await db.sync({force: true})
+    await Promise.all(
+      products.map(product => {
+        return Product.create(product)
+      })
+    )
+    await Promise.all(
+      users.map(user => {
+        return Users.create(user)
+      })
+    )
   } catch (err) {
-    console.error(err)
-    process.exitCode = 1
-  } finally {
-    console.log('closing db connection')
-    await db.close()
-    console.log('db connection closed')
+    console.log(red(err))
   }
 }
-
-// Execute the `seed` function, IF we ran this module directly (`node seed`).
-// `Async` functions always return a promise, so we can use `catch` to handle
-// any errors that might occur inside of `seed`.
-if (module === require.main) {
-  runSeed()
-}
-
-// we export the seed function for testing purposes (see `./seed.spec.js`)
 module.exports = seed
+// If this module is being required from another module, then we just export the
+// function, to be used as necessary. But it will run right away if the module
+// is executed directly (e.g. `node seed.js` or `npm run seed`)
+if (require.main === module) {
+  seed()
+    .then(() => {
+      console.log(green('Seeding success!'))
+      db.close()
+    })
+    .catch(err => {
+      console.error(red('Oh noes! Something went wrong!'))
+      console.error(err)
+      db.close()
+    })
+}
