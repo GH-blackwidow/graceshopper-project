@@ -5,13 +5,18 @@ const {DataTypes} = require('sequelize')
 const Order = db.define('order', {
   quantity: {
     type: Sequelize.INTEGER,
+    allowNull: false,
     validate: {
-      min: 1
+      min: 1,
+      notEmpty: true
     }
   },
   shippingCost: {
     type: Sequelize.INTEGER,
-    allowNull: false
+    allowNull: false,
+    validate: {
+      notEmpty: true
+    }
     //flat rate per order, and split up by item in the front-end
   },
   currentOrder: {
@@ -21,7 +26,10 @@ const Order = db.define('order', {
   },
   shippingAddress: {
     type: Sequelize.TEXT,
-    allowNull: false
+    allowNull: false,
+    validate: {
+      notEmpty: true
+    }
   },
   subtotal: {
     type: DataTypes.VIRTUAL
@@ -30,7 +38,8 @@ const Order = db.define('order', {
     type: Sequelize.STRING,
     allowNull: false,
     validate: {
-      isCreditCard: true
+      isCreditCard: true,
+      notEmpty: true
     }
   }
 })
