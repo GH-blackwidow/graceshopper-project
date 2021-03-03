@@ -1,12 +1,12 @@
 /* global describe beforeEach it */
 
 const {expect} = require('chai')
-const db = require('../../server/db')
+const db = require('../../server/db/models/orders')
 const Order = db.model('order')
 
 describe('Order model', () => {
-  beforeEach(async () => {
-    await db.sync({force: true})
+  beforeEach(() => {
+    return db.sync({force: true})
   })
   afterEach(() => db.sync({force: true}))
 
@@ -61,6 +61,7 @@ describe('Order model', () => {
       currentOrder: false,
       shippingAddress: '',
       payment: '25'
+
     })
     try {
       await orderEmpty.validate()
@@ -73,4 +74,4 @@ describe('Order model', () => {
       )
     }
   })
-})
+}) // end describe('Order model')
