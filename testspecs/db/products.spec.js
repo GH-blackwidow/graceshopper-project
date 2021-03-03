@@ -28,6 +28,19 @@ describe('Product model', () => {
       it('create a beer with correct price', () => {
         expect(beer.price).to.be.equal(2.99)
       })
+      it('requires name, alcoholContent, price', async () => {
+        const newBeer = Product.build()
+        try {
+          await newBeer.validate()
+          throw Error(
+            'validation should have failed without name, alcoholContent, price'
+          )
+        } catch (err) {
+          expect(err.message).to.contain('name cannot be null')
+          expect(err.message).to.contain('alcoholContent cannot be null')
+          expect(err.message).to.contain('price cannot be null')
+        }
+      })
     }) // end describe('correctPassword')
   }) // end describe('instanceMethods')
 }) // end describe('User model')
