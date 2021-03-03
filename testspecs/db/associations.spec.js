@@ -97,7 +97,7 @@ describe('Model Relations', () => {
     })
     it('An order has one user', async () => {
       const example = await order.hasUserss([user1, user2])
-      expect(example).to.be.rejected
+      expect(example).to.be.equal(false)
     })
   })
 })
