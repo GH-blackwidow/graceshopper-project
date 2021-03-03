@@ -34,10 +34,10 @@ module.exports = db.define('users', {
     }
   },
   payment: {
-    type: Sequelize.STRING
-    // validate: {
-    //   isCreditCard: true,
-    // },
+    type: Sequelize.STRING,
+    validate: {
+      isCreditCard: true
+    }
   },
   registered: {
     type: Sequelize.BOOLEAN

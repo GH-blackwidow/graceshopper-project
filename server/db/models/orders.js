@@ -12,7 +12,7 @@ const Order = db.define('order', {
     }
   },
   shippingCost: {
-    type: Sequelize.INTEGER,
+    type: DataTypes.DECIMAL(10, 2),
     allowNull: false,
     validate: {
       notEmpty: true

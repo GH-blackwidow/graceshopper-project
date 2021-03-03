@@ -2,7 +2,7 @@
 const faker = require('faker')
 const {green, red} = require('chalk')
 const db = require('../server/db')
-const {Product, Users} = require('../server/db/models')
+const {Product, Users, Order} = require('../server/db/models')
 
 const products = [
   {
@@ -58,8 +58,18 @@ const users = [...Array(10)].map(user => ({
   name: faker.name.firstName(),
   email: faker.internet.email(),
   address: faker.address.streetAddress(),
-  payment: faker.finance.creditCardNumber(),
+  payment: '4604876475938242',
   age: faker.random.number({min: 21, max: 40})
+}))
+
+const orders = [...Array(10)].map(order => ({
+  quantity: faker.random.number({min: 1, max: 500}),
+  shippingCost: (Math.random() * (5.0 - 1.0 + 1.0) + 1.0).toFixed(2),
+  currentOrder: faker.random.boolean(),
+  shippingAddress: faker.address.streetAddress(),
+  payment: '4604876475938242',
+  userId: faker.random.number({min: 1, max: users.length}),
+  productId: faker.random.number({min: 1, max: products.length})
 }))
 
 const seed = async () => {
@@ -73,6 +83,11 @@ const seed = async () => {
     await Promise.all(
       users.map(user => {
         return Users.create(user)
+      })
+    )
+    await Promise.all(
+      orders.map(order => {
+        return Order.create(order)
       })
     )
   } catch (err) {
