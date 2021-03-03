@@ -45,13 +45,3 @@ const Order = db.define('order', {
 })
 
 module.exports = Order
-
-//Seed Data will look like:
-//quantity ordered, shippingCost, orderhistory, shippingAddress, productId(association), userId(association), (subtotal virtual field)
-
-//Associations:
-// product belongs to order (productId)
-// order has many products
-
-// order belongs to user (userId)
-// user has one order

@@ -1,7 +1,7 @@
 /* global describe beforeEach it */
 
 const {expect} = require('chai')
-const db = require('../../server/db/models/orders')
+const db = require('../../server/db')
 const Order = db.model('order')
 
 describe('Order model', () => {
@@ -61,7 +61,6 @@ describe('Order model', () => {
       currentOrder: false,
       shippingAddress: '',
       payment: '25'
-
     })
     try {
       await orderEmpty.validate()

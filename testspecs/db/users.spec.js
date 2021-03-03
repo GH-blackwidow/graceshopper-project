@@ -1,5 +1,5 @@
 const {expect} = require('chai')
-const db = require('../../server/db/models/users')
+const db = require('../../server/db')
 const Users = db.model('users')
 
 describe('Users Model', () => {

@@ -47,14 +47,15 @@ const products = [
   }
 ]
 
-// const fakerProduct = [...Array(10)].map((product) => ({
+//dummy date for beer:
+//const fakerProduct = [...Array(10)].map((product) => ({
 //   name: faker.lorem.word(),
 //   alcoholContent: faker.random.float({min: 2.0, max: 4.5}),
 //   ounces: 12,
 //   price: faker.commerce.price({min: 1.59, max: 4.99}),
 // }))
 
-const users = [...Array(10)].map(user => ({
+const users = [...Array(10)].map(() => ({
   name: faker.name.firstName(),
   email: faker.internet.email(),
   address: faker.address.streetAddress(),
@@ -64,7 +65,7 @@ const users = [...Array(10)].map(user => ({
   age: faker.random.number({min: 21, max: 40})
 }))
 
-const orders = [...Array(10)].map(order => ({
+const orders = [...Array(10)].map(() => ({
   quantity: faker.random.number({min: 1, max: 500}),
   shippingCost: (Math.random() * (5.0 - 1.0 + 1.0) + 1.0).toFixed(2),
   currentOrder: faker.random.boolean(),
@@ -97,9 +98,6 @@ const seed = async () => {
   }
 }
 module.exports = seed
-// If this module is being required from another module, then we just export the
-// function, to be used as necessary. But it will run right away if the module
-// is executed directly (e.g. `node seed.js` or `npm run seed`)
 if (require.main === module) {
   seed()
     .then(() => {
