@@ -59,6 +59,8 @@ const users = [...Array(10)].map(user => ({
   email: faker.internet.email(),
   address: faker.address.streetAddress(),
   payment: '4604876475938242',
+  registered: faker.random.boolean(),
+  password: faker.internet.password(),
   age: faker.random.number({min: 21, max: 40})
 }))
 
