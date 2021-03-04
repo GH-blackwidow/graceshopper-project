@@ -8,7 +8,7 @@ function HomePage() {
       <h1>Welcome to our Grace Hopper homepage! </h1>
       <h3>The hoppiest place on the web! </h3>
       <img
-        src="/public/beerpicture.jpg"
+        src="https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/fakebeers-1563897135.jpg"
         alt="beermagic"
         style={{width: '500px'}}
       />
