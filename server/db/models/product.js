@@ -13,7 +13,6 @@ const Product = db.define('product', {
   origin: {
     type: Sequelize.STRING
   },
-
   alcoholContent: {
     type: Sequelize.FLOAT,
     allowNull: false
