@@ -18,9 +18,27 @@ const User = db.define('users', {
     }
   },
 
+  address: {
+    type: Sequelize.STRING,
+    allowNull: false,
+    validate: {
+      notEmpty: true
+    }
+  },
+  payment: {
+    type: Sequelize.STRING,
+    validate: {
+      isCreditCard: true
+    }
+  },
+  registered: {
+    type: Sequelize.BOOLEAN
+
+
   isAdmin: {
     type: Sequelize.BOOLEAN,
     defaultValue: false
+
   },
   age: {
     type: Sequelize.INTEGER,
