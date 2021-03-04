@@ -2,7 +2,7 @@
 const faker = require('faker')
 const {green, red} = require('chalk')
 const db = require('../server/db')
-const {Product, Users, Order} = require('../server/db/models')
+const {Product, Users, Order, OrderProducts} = require('../server/db/models')
 
 const products = [
   {
@@ -59,6 +59,7 @@ const users = [...Array(10)].map(() => ({
   name: faker.name.firstName(),
   email: faker.internet.email(),
   password: faker.internet.password(),
+  isAdmin: faker.random.boolean(),
   age: faker.random.number({min: 21, max: 40})
 }))
 
@@ -68,6 +69,12 @@ const orders = [...Array(10)].map(() => ({
   isCurrent: faker.random.boolean(),
   // shippingAddress: faker.address.streetAddress(),
   userId: faker.random.number({min: 1, max: users.length}),
+  productId: faker.random.number({min: 1, max: products.length})
+}))
+
+const orderProducts = [...Array(10)].map(() => ({
+  quantity: faker.random.number({min: 1, max: 10}),
+  orderId: faker.random.number({min: 1, max: orders.length}),
   productId: faker.random.number({min: 1, max: products.length})
 }))
 
@@ -87,6 +94,11 @@ const seed = async () => {
     await Promise.all(
       orders.map(order => {
         return Order.create(order)
+      })
+    )
+    await Promise.all(
+      orderProducts.map(orderProduct => {
+        return OrderProducts.create(orderProduct)
       })
     )
   } catch (err) {
