@@ -7,5 +7,14 @@ router.get('/:productId', async (req, res, next) => {
   } catch (error) {
     next(error)
   }
-})
+});
 module.exports = router
+
+router.get('/', async(req, res, next) => {
+  try {
+      const products = await Product.findAll()
+      res.json(products)
+  } catch (error){
+      next(error)
+  }
+});
