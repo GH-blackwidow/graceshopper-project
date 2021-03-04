@@ -31,10 +31,8 @@ const Product = db.define('product', {
   },
   imgUrl: {
     type: Sequelize.TEXT,
+    defaultValue: 'https://picsum.photos/200/300',
     allowNull: false
-  },
-  reviews: {
-    type: Sequelize.TEXT
   }
 })
 module.exports = Product
