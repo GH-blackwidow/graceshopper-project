@@ -4,21 +4,12 @@ import {Link} from 'react-router-dom'
 import {fetchProducts} from '../store/Products'
 
 export class AllProducts extends React.Component {
-  constructor() {
-    super()
-    this.state = {
-      products: []
-    }
-  }
   componentDidMount() {
     this.props.getProducts()
-    console.log(this.props.getProducts())
   }
 
   render() {
-    const products = this.props.products
-    console.log('state is ---->', this.state)
-    console.log('props is ---->', this.props)
+    const products = this.props.products.products || []
 
     return (
       <div id="products">
