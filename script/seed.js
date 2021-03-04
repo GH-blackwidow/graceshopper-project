@@ -58,19 +58,15 @@ const products = [
 const users = [...Array(10)].map(() => ({
   name: faker.name.firstName(),
   email: faker.internet.email(),
-  address: faker.address.streetAddress(),
-  payment: '4604876475938242',
-  registered: faker.random.boolean(),
   password: faker.internet.password(),
   age: faker.random.number({min: 21, max: 40})
 }))
 
 const orders = [...Array(10)].map(() => ({
-  quantity: faker.random.number({min: 1, max: 500}),
-  shippingCost: (Math.random() * (5.0 - 1.0 + 1.0) + 1.0).toFixed(2),
-  currentOrder: faker.random.boolean(),
-  shippingAddress: faker.address.streetAddress(),
-  payment: '4604876475938242',
+  quantity: faker.random.number({min: 1, max: 10}),
+  // shippingCost: (Math.random() * (5.0 - 1.0 + 1.0) + 1.0).toFixed(2),
+  isCurrent: faker.random.boolean(),
+  // shippingAddress: faker.address.streetAddress(),
   userId: faker.random.number({min: 1, max: users.length}),
   productId: faker.random.number({min: 1, max: products.length})
 }))
