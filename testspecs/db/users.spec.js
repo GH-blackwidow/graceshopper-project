@@ -8,10 +8,9 @@ describe('Users Model', () => {
   })
   afterEach(() => db.sync({force: true}))
 
-
-describe('validations', () => {
-  it('must include name, email, address, and payment', async () => {
-    const user = await Users.create({
+  describe('validations', () => {
+    it('must include name, email, address, and payment', async () => {
+      const user = await Users.create({
         name: 'Tim',
         email: 'timmytim@aol.com',
         address: '4 Timothy Lane',
@@ -23,29 +22,27 @@ describe('validations', () => {
       expect(user.address).to.equal('4 Timothy Lane')
       expect(user.payment).to.equal('1111 2222 3333 4444')
       expect(user.age).to.equal(21)
-  })
-  it('age must be 21 or over', async () => {
-    try {}
-    const userAge = await Users.create({
+    })
+    it('age must be 21 or over', async () => {
+      const userAge = await Users.create({
         name: 'Mary',
         email: 'mary@aol.com',
         address: '111 Water St',
         payment: '1111 2222 3333 4444',
         age: 19
       })
-  })
-  it('email must be valid', async () => {
-    await expect(
-      Users.create({
-        name: 'John',
-        email: 'john',
-        address: '222 Green St',
-        payment: '1111 2222 3333 4444',
-        age: 27
-      }),
-      'Email should be a valid email'
-    ).to.be.rejected
-     }
-    )
+    })
+    it('email must be valid', async () => {
+      await expect(
+        Users.create({
+          name: 'John',
+          email: 'john',
+          address: '222 Green St',
+          payment: '1111 2222 3333 4444',
+          age: 27
+        }),
+        'Email should be a valid email'
+      ).to.be.rejected
+    })
   })
 })

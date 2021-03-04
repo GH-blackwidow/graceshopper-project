@@ -1,7 +1,6 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import {fetchSingleProduct} from '../redux/singleStudent'
-import {Link} from 'react-router-dom'
+import {fetchSingleProduct} from '../store/singleProduct'
 
 class SingleProduct extends Component {
   componentDidMount() {

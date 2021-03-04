@@ -17,29 +17,9 @@ const User = db.define('users', {
       isEmail: true
     }
   },
-
-  address: {
-    type: Sequelize.STRING,
-    allowNull: false,
-    validate: {
-      notEmpty: true
-    }
-  },
-  payment: {
-    type: Sequelize.STRING,
-    validate: {
-      isCreditCard: true
-    }
-  },
-  registered: {
-    type: Sequelize.BOOLEAN
-
-  },
-  
   isAdmin: {
     type: Sequelize.BOOLEAN,
     defaultValue: false
-
   },
   age: {
     type: Sequelize.INTEGER,
@@ -58,17 +38,14 @@ const User = db.define('users', {
     get() {
       return () => this.getDataValue('salt')
     }
-
   }
 })
 
 module.exports = User
 
-
 User.prototype.correctPassword = function(candidatePwd) {
   return User.encryptPassword(candidatePwd, this.salt()) === this.password()
 }
-
 
 User.generateSalt = function() {
   return crypto.randomBytes(16).toString('base64')
@@ -81,7 +58,6 @@ User.encryptPassword = function(plainText, salt) {
     .update(salt)
     .digest('hex')
 }
-
 
 const setSaltAndPassword = user => {
   if (user.changed('password')) {
