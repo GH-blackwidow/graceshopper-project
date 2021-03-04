@@ -34,7 +34,8 @@ const User = db.define('users', {
   registered: {
     type: Sequelize.BOOLEAN
 
-
+  },
+  
   isAdmin: {
     type: Sequelize.BOOLEAN,
     defaultValue: false
