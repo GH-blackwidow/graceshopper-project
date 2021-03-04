@@ -45,11 +45,11 @@ describe('Model Relations', () => {
     afterEach(() => db.sync({force: true}))
 
     it('an order may have many products', async () => {
-      const result = await order.hasProducts([product1, product2])
+      const result = await Order.hasProducts([product1, product2])
       expect(result).to.be.equal(true)
     })
     it('a product can have many orders', async () => {
-      const example = await product.hasOrders([order, order2])
+      const example = await Product.hasOrders([order, order2])
       expect(example).to.be.equal(true)
     })
   })
@@ -78,7 +78,7 @@ describe('Model Relations', () => {
         currentOrder: true,
         shippingAddress: '111 Water Lane',
         subtotal: 3,
-        userId: users.id
+        userId: 1
       })
       order2 = await Order.create({
         quantity: 1,
@@ -86,17 +86,17 @@ describe('Model Relations', () => {
         currentOrder: true,
         shippingAddress: '111 Water Lane',
         subtotal: 3,
-        userId: users.id
+        userId: 2
       })
     })
     afterEach(() => db.sync({force: true}))
 
     it('Users can have many orders', async () => {
-      const result = await users.hasOrders([order1, order2])
+      const result = await Users.hasOrders([order1, order2])
       expect(result).to.be.equal(true)
     })
     it('An order has one user', async () => {
-      const example = await order.hasUserss([user1, user2])
+      const example = await Order.hasUsers([user1, user2])
       expect(example).to.be.equal(false)
     })
   })

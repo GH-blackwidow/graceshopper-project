@@ -1,7 +1,6 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import {fetchSingleProduct} from '../redux/singleStudent'
-import {Link} from 'react-router-dom'
+import {fetchSingleProduct} from '../store'
 
 class SingleProduct extends Component {
   componentDidMount() {
@@ -28,7 +27,7 @@ class SingleProduct extends Component {
 }
 const mapStateToProps = state => {
   return {
-    student: state.singleProduct
+    product: state.singleProduct
   }
 }
 

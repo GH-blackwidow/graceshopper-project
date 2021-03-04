@@ -1,36 +1,34 @@
 import axios from 'axios'
 
 //ACTION TYPES
-const GET_PRODUCTS
+const GET_PRODUCTS = 'GET_PRODUCTS'
 
 //ACTION CREATORS
-export const getProducts = (products) => ({
-    type: GET_PRODUCTS,
-    products
-});
+const getProducts = products => ({
+  type: GET_PRODUCTS,
+  products
+})
 
 //THUNK CREATOR
 export const fetchProducts = () => {
+  return async dispatch => {
     try {
-        const { data } = await axios.get('/api/products')
-        dispatch(getProducts(data))
-
+      const {data} = await axios.get('/api/products')
+      dispatch(getProducts(data))
     } catch (err) {
       console.log('Error fetching products from server')
     }
+  }
 }
-
 //INITIAL STATE
-const initialState = {
-    products: []
-}
+const initialState = []
 
 //REDUCER
-const productsReducer = (state = initialState, action) => {
-    switch(action.type) {
-        case GET_PRODUCTS:
-            return{...state, products: action.products}
-            default:
-                return state
-    }
+export default (state = initialState, action) => {
+  switch (action.type) {
+    case GET_PRODUCTS:
+      return {...state, products: action.products}
+    default:
+      return state
+  }
 }
