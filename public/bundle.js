@@ -154,29 +154,20 @@ function (_React$Component) {
   _inherits(AllProducts, _React$Component);
 
   function AllProducts() {
-    var _this;
-
     _classCallCheck(this, AllProducts);
 
-    _this = _possibleConstructorReturn(this, _getPrototypeOf(AllProducts).call(this));
-    _this.state = {
-      products: []
-    };
-    return _this;
+    return _possibleConstructorReturn(this, _getPrototypeOf(AllProducts).apply(this, arguments));
   }
 
   _createClass(AllProducts, [{
     key: "componentDidMount",
     value: function componentDidMount() {
       this.props.getProducts();
-      console.log(this.props.getProducts());
     }
   }, {
     key: "render",
     value: function render() {
-      var products = this.props.products;
-      console.log('state is ---->', this.state);
-      console.log('props is ---->', this.props);
+      var products = this.props.products.products || [];
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         id: "products"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, "Beer Selection"), products.map(function (product) {
@@ -844,21 +835,22 @@ var fetchProducts = function fetchProducts() {
               case 3:
                 _ref2 = _context.sent;
                 data = _ref2.data;
+                console.log('this is the data ', data);
                 dispatch(getProducts(data));
-                _context.next = 11;
+                _context.next = 12;
                 break;
 
-              case 8:
-                _context.prev = 8;
+              case 9:
+                _context.prev = 9;
                 _context.t0 = _context["catch"](0);
                 console.log('Error fetching products from server');
 
-              case 11:
+              case 12:
               case "end":
                 return _context.stop();
             }
           }
-        }, _callee, null, [[0, 8]]);
+        }, _callee, null, [[0, 9]]);
       }));
 
       return function (_x) {
@@ -1029,7 +1021,7 @@ __webpack_require__.r(__webpack_exports__);
 var appReducer = Object(redux__WEBPACK_IMPORTED_MODULE_0__["combineReducers"])({
   user: _user__WEBPACK_IMPORTED_MODULE_1__["default"],
   singleProduct: _singleProduct__WEBPACK_IMPORTED_MODULE_3__["default"],
-  Products: _Products__WEBPACK_IMPORTED_MODULE_2__["default"]
+  products: _Products__WEBPACK_IMPORTED_MODULE_2__["default"]
 });
 /* harmony default export */ __webpack_exports__["default"] = (appReducer);
 
@@ -44752,7 +44744,7 @@ function warning(message) {
 /*!***************************************************************!*\
   !*** ./node_modules/react-router-dom/esm/react-router-dom.js ***!
   \***************************************************************/
-/*! exports provided: BrowserRouter, HashRouter, Link, NavLink, MemoryRouter, Prompt, Redirect, Route, Router, StaticRouter, Switch, generatePath, matchPath, withRouter, __RouterContext */
+/*! exports provided: MemoryRouter, Prompt, Redirect, Route, Router, StaticRouter, Switch, generatePath, matchPath, withRouter, __RouterContext, BrowserRouter, HashRouter, Link, NavLink */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
