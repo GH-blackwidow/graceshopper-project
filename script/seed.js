@@ -11,7 +11,7 @@ const products = [
     ounces: 12,
     price: 2.99,
     imgUrl:
-      'https://products2.imgix.drizly.com/ci-bud-light-b9f56e308351885e.jpeg?auto=format%2Ccompress&fm=jpg&q=20'
+      'https://centralsupercenter.com/wp-content/uploads/1970/01/bud-light-beer-12oz.jpg'
   },
   {
     name: 'Heineken Light',
@@ -19,7 +19,7 @@ const products = [
     ounces: 12,
     price: 2.49,
     imgUrl:
-      'https://products3.imgix.drizly.com/ci-heineken-light-ccc4c123d69f7425.jpeg?auto=format%2Ccompress&fm=jpg&q=20'
+      'https://d2lnr5mha7bycj.cloudfront.net/product-image/file/large_02cbe056-3367-4ce8-831d-cea75829e6ee.jpeg'
   },
   {
     name: 'Blue Moon Belgian White Wheat Beer',
@@ -35,7 +35,7 @@ const products = [
     ounces: 19.02,
     price: 2.29,
     imgUrl:
-      'https://products3.imgix.drizly.com/ci-lagunitas-ipa-ea3c01b7b5a23bd8.png?auto=format%2Ccompress&fm=jpg&q=20'
+      'https://dydza6t6xitx6.cloudfront.net/ci-lagunitas-ipa-ea3c01b7b5a23bd8.png'
   },
   {
     name: 'Corona Light',
@@ -43,7 +43,7 @@ const products = [
     ounces: 19.02,
     price: 2.49,
     imgUrl:
-      'https://products0.imgix.drizly.com/ci-corona-light-7bd9c33898fb3769.jpeg?auto=format%2Ccompress&fm=jpg&q=20'
+      'https://www.wallywine.com/media/catalog/product/cache/1/image/1800x/9df78eab33525d08d6e5fb8d27136e95/0/0/000714.jpg'
   }
 ]
 

@@ -16,19 +16,18 @@ export class AllProducts extends React.Component {
         <h1>Beer Selection</h1>
         {products.map(product => (
           <div key={product.id}>
-            <img
-              src={product.imageUrl}
-              alt={product.name}
-              style={{width: '200px'}}
-            />
-            <h3>{product.name}</h3>
-            <Link to={`/products/${product.id}`}>View</Link>
-            <p>{product.style}</p>
-            <p>{product.origin}</p>
-            <p>{product.alcoholContent}</p>
-            <p>{product.ounces}</p>
+            <Link to={`/products/${product.id}`}>
+              <img
+                src={product.imgUrl}
+                alt={product.name}
+                style={{width: '200px'}}
+              />
+              <h3>Beer Name:{product.name}</h3>
+              View
+            </Link>
             <h4>
-              <strong>{product.price}</strong>
+              Price
+              <strong>:{product.price}</strong>
             </h4>
           </div>
         ))}
