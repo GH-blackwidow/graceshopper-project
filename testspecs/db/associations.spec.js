@@ -1,6 +1,6 @@
 const {expect} = require('chai')
 const db = require('../../server/db')
-const Users = db.model('users')
+const User = db.model('users')
 const Order = db.model('order')
 const Product = db.model('product')
 
@@ -67,7 +67,7 @@ describe('Model Relations', () => {
         email: 'paul@aol.com',
         address: '319 South Ave'
       })
-      user2 = await User.create({  
+      user2 = await User.create({
         name: 'Jim',
         email: 'jim@gmail.com',
         address: '999 Love St'
