@@ -14,7 +14,7 @@ describe('Users Model', () => {
         name: 'Tim',
         email: 'timmytim@aol.com',
         address: '4 Timothy Lane',
-        isAdmin: false
+        isAdmin: false,
         age: 21
       })
       expect(user.name).to.equal('Tim')
