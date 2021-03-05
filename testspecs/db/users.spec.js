@@ -14,13 +14,12 @@ describe('Users Model', () => {
         name: 'Tim',
         email: 'timmytim@aol.com',
         address: '4 Timothy Lane',
-        payment: '1111 2222 3333 4444',
+        isAdmin: false,
         age: 21
       })
       expect(user.name).to.equal('Tim')
       expect(user.email).to.equal('timmytim@aol.com')
-      expect(user.address).to.equal('4 Timothy Lane')
-      expect(user.payment).to.equal('1111 2222 3333 4444')
+      expect(user.isAdmin).to.equal(false)
       expect(user.age).to.equal(21)
     })
     it('age must be 21 or over', async () => {
@@ -28,7 +27,7 @@ describe('Users Model', () => {
         name: 'Mary',
         email: 'mary@aol.com',
         address: '111 Water St',
-        payment: '1111 2222 3333 4444',
+        isAdmin: false,
         age: 19
       })
     })
@@ -38,7 +37,7 @@ describe('Users Model', () => {
           name: 'John',
           email: 'john',
           address: '222 Green St',
-          payment: '1111 2222 3333 4444',
+          isAdmin: false,
           age: 27
         }),
         'Email should be a valid email'
