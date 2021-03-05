@@ -4,40 +4,30 @@ import {Link} from 'react-router-dom'
 import {fetchProducts} from '../store/Products'
 
 export class AllProducts extends React.Component {
-  constructor() {
-    super()
-    this.state = {
-      products: []
-    }
-  }
   componentDidMount() {
     this.props.getProducts()
-    console.log(this.props.getProducts())
   }
 
   render() {
-    const products = this.props.products
-    console.log('state is ---->', this.state)
-    console.log('props is ---->', this.props)
+    const products = this.props.products.products || []
 
     return (
       <div id="products">
         <h1>Beer Selection</h1>
         {products.map(product => (
           <div key={product.id}>
-            <img
-              src={product.imageUrl}
-              alt={product.name}
-              style={{width: '200px'}}
-            />
-            <h3>{product.name}</h3>
-            <Link to={`/products/${product.id}`}>View</Link>
-            <p>{product.style}</p>
-            <p>{product.origin}</p>
-            <p>{product.alcoholContent}</p>
-            <p>{product.ounces}</p>
+            <Link to={`/products/${product.id}`}>
+              <img
+                src={product.imgUrl}
+                alt={product.name}
+                style={{width: '200px'}}
+              />
+              <h3>Beer Name:{product.name}</h3>
+              View
+            </Link>
             <h4>
-              <strong>{product.price}</strong>
+              Price
+              <strong>:{product.price}</strong>
             </h4>
           </div>
         ))}

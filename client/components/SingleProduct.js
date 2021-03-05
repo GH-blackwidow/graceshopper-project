@@ -15,19 +15,19 @@ class SingleProduct extends Component {
     const product = this.props.product || []
     return (
       <div id="single-product">
-        <h1>{product.name}</h1>
-        <h2>Price:{product.price}</h2>
-        <h2>Description: </h2>
+        <h2>{product.name}</h2>
+        <h4>Price:{product.price}</h4>
+        <h4>Description: </h4>
         <p>Alcohol Content: {product.alcoholContent}</p>
         <p>Ounces: {product.ounces}</p>
-        <img src={product.imgUrl} alt={product.name} style={{width: '500px'}} />
+        <img src={product.imgUrl} alt={product.name} style={{width: '300px'}} />
       </div>
     )
   }
 }
 const mapStateToProps = state => {
   return {
-    student: state.singleProduct
+    product: state.singleProduct
   }
 }
 
