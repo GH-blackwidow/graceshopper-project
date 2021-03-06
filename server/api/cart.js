@@ -55,8 +55,10 @@ router.put('/', async (req, res, next) => {
       ]
     })
     if (currentOrder) {
-      await currentOrder.update(req.body) //update everything with all the new data (will handle deletions as well)
+      //if current order then update
+      await currentOrder.update(req.body)
     } else {
+      //if not create a new order
       await Order.create({
         userId: req.body.user,
         productId: req.body.productId,
@@ -64,7 +66,6 @@ router.put('/', async (req, res, next) => {
       })
     }
     req.session.cart = req.body
-
     res.sendStatus(204)
   } catch (error) {
     next(error)
