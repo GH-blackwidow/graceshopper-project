@@ -1,6 +1,6 @@
 const {expect} = require('chai')
 const db = require('../../server/db')
-const Users = db.model('users')
+const User = db.model('users')
 const Order = db.model('order')
 const Product = db.model('product')
 
@@ -62,12 +62,12 @@ describe('Model Relations', () => {
   describe('User and Order models', () => {
     let user1, user2, order1, order2
     beforeEach(async () => {
-      user1 = await Users.create({
+      user1 = await User.create({
         name: 'Paul',
         email: 'paul@aol.com',
         address: '319 South Ave'
       })
-      user2 = await Users.create({
+      user2 = await User.create({
         name: 'Jim',
         email: 'jim@gmail.com',
         address: '999 Love St'
@@ -92,7 +92,7 @@ describe('Model Relations', () => {
     afterEach(() => db.sync({force: true}))
 
     it('Users can have many orders', async () => {
-      const result = await Users.hasOrders([order1, order2])
+      const result = await User.hasOrders([order1, order2])
       expect(result).to.be.equal(true)
     })
     it('An order has one user', async () => {
