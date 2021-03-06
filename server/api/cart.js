@@ -39,7 +39,7 @@ router.get('/', async (req, res, next) => {
   }
 })
 
-//update the cart (can be used for delete as well)
+//route to update cart in total
 router.put('/', async (req, res, next) => {
   try {
     req.session.cart = req.body //update session with new cart data
@@ -54,7 +54,17 @@ router.put('/', async (req, res, next) => {
         }
       ]
     })
-    await currentOrder.update(req.body) //update everything with all the new data (will handle deletions as well)
+    if (currentOrder) {
+      await currentOrder.update(req.body) //update everything with all the new data (will handle deletions as well)
+    } else {
+      await Order.create({
+        userId: req.body.user,
+        productId: req.body.productId,
+        quantity: req.body.quantity
+      })
+    }
+    req.session.cart = req.body
+
     res.sendStatus(204)
   } catch (error) {
     next(error)
