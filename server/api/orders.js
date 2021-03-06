@@ -9,8 +9,8 @@ router.get('/', async (req, res, next) => {
     //need to better understand how we're getting the userId
     const pastOrders = await Order.findAll({
       where: {
-        isCurrent: false
-        // userId: req.body.user.id, //not sure if this will be the best way to get the Id? or should do req.session?
+        isCurrent: false,
+        userId: req.body.userId //not sure if this will be the best way to get the Id? or should do req.session?
       },
       include: [
         {

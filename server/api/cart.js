@@ -28,10 +28,10 @@ async function cartItem(id) {
 router.get('/', async (req, res, next) => {
   //how to identify is someone has a session already is it req.user? req.body.user?
   try {
-    if (!req.user) {
+    if (!req.body.userId) {
       res.json(req.session.cart)
     } else {
-      const cart = await cartItem(req.user.id)
+      const cart = await cartItem(req.body.userId)
       res.json(cart)
     }
   } catch (error) {
@@ -60,7 +60,7 @@ router.put('/', async (req, res, next) => {
     } else {
       //if not create a new order
       await Order.create({
-        userId: req.body.user,
+        userId: req.body.userId,
         productId: req.body.productId,
         quantity: req.body.quantity
       })
