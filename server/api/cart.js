@@ -28,10 +28,10 @@ async function cartItem(id) {
 router.get('/', async (req, res, next) => {
   //how to identify is someone has a session already is it req.user? req.body.user?
   try {
-    if (!req.user) {
+    if (!req.body.userId) {
       res.json(req.session.cart)
     } else {
-      const cart = await cartItem(req.user.id)
+      const cart = await cartItem(req.body.userId)
       res.json(cart)
     }
   } catch (error) {
@@ -39,7 +39,7 @@ router.get('/', async (req, res, next) => {
   }
 })
 
-//update the cart (can be used for delete as well)
+//route to update cart in total
 router.put('/', async (req, res, next) => {
   try {
     req.session.cart = req.body //update session with new cart data
@@ -54,7 +54,18 @@ router.put('/', async (req, res, next) => {
         }
       ]
     })
-    await currentOrder.update(req.body) //update everything with all the new data (will handle deletions as well)
+    if (currentOrder) {
+      //if current order then update
+      await currentOrder.update(req.body)
+    } else {
+      //if not create a new order
+      await Order.create({
+        userId: req.body.userId,
+        productId: req.body.productId,
+        quantity: req.body.quantity
+      })
+    }
+    req.session.cart = req.body
     res.sendStatus(204)
   } catch (error) {
     next(error)
