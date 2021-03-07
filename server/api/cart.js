@@ -1,5 +1,6 @@
 const router = require('express').Router()
 const {Order, Product} = require('../db/models')
+const {verifyCorrectUser} = require('../utils/gatekeeping')
 module.exports = router
 
 router.use((req, res, next) => {
@@ -13,19 +14,19 @@ async function cartItem(id) {
   const items = await Order.findAll({
     where: {
       userId: id,
-      isCurrent: true,
+      isCurrent: true
     },
     include: [
       {
-        model: Product,
-      },
-    ],
+        model: Product
+      }
+    ]
   })
   return items
 }
 
 //get items in the cart based on currentSession or userId
-router.get('/:userId', async (req, res, next) => {
+router.get('/:userId', verifyCorrectUser, async (req, res, next) => {
   try {
     const {userId} = req.params
     if (!userId) {
@@ -40,7 +41,7 @@ router.get('/:userId', async (req, res, next) => {
 })
 
 //route to update cart in total (add & deletes & creation)
-router.put('/:userId', async (req, res, next) => {
+router.put('/:userId', verifyCorrectUser, async (req, res, next) => {
   try {
     req.session.cart = req.body //update everyone's session with new cart data
     const {userId} = req.params
@@ -53,7 +54,7 @@ router.put('/:userId', async (req, res, next) => {
           : await Order.create({
               userId: userId,
               productId: req.body.productId,
-              quantity: req.body.quantity,
+              quantity: req.body.quantity
             })
       }
     }
@@ -63,7 +64,7 @@ router.put('/:userId', async (req, res, next) => {
   }
 })
 //add route updates the order quantity
-router.post('/add', async (req, res, next) => {
+router.post('/add', verifyCorrectUser, async (req, res, next) => {
   const productData = await Product.findById(req.body.productId)
   if (!req.user) {
     req.session.cart.push({
