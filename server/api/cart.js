@@ -62,3 +62,24 @@ router.put('/:userId', async (req, res, next) => {
     next(error)
   }
 })
+//add route updates the order quantity
+router.post('/add', async (req, res, next) => {
+  const productData = await Product.findById(req.body.productId)
+  if (!req.user) {
+    req.session.cart.push({
+      productId: req.body.productId,
+      quantity: req.body.quantity,
+      product: productData
+    })
+  } else {
+    await Order.create({
+      userId: req.user.id,
+      productId: req.body.productId,
+      quantity: req.body.quantity
+    })
+
+    const cart = await cartItem(req.user.id)
+    req.session.cart = cart
+  }
+  res.json(req.session.cart)
+})
