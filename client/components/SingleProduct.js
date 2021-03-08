@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {fetchSingleProduct} from '../store/singleProduct'
-import Cart from './Cart'
+import CartButton from './CartButton'
 
 class SingleProduct extends Component {
   componentDidMount() {
@@ -14,7 +14,7 @@ class SingleProduct extends Component {
       <div id="single-product">
         <h2>{product.name}</h2>
         <h4>Price:{product.price}</h4>
-        <Cart props={this.props} />
+        <CartButton user={this.props.user} productId={product.id} />
         <h4>Description: </h4>
         <p>Alcohol Content: {product.alcoholContent}</p>
         <p>Ounces: {product.ounces}</p>
