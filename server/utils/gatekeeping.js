@@ -1,10 +1,5 @@
-<<<<<<< HEAD
-const User = require('../db/models.user')
-const Order = require('../db/models/order')
-=======
-const {User, Order} = require('../db/models')
-
->>>>>>> 262cc07be5cb599e72aefe5deb2fbe692cd68282
+const User = require('../db/models/user')
+const Order = require('../db/models/orders')
 
 const verifyAdmin = (req, res, next) => {
   if (req.user && req.user.isAdmin) {
