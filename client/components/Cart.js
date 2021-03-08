@@ -18,7 +18,8 @@ export class Cart extends React.Component {
     }
 
     componentDidMount() {
-        let cart = localStorage.getItem('cart');
+        this.props.fetchCart()
+        let cart = localStorage.getItem('order');
         if(!cart) return;
         getCart(cart).then((products) => {
             let total = 0;
@@ -37,12 +38,21 @@ export class Cart extends React.Component {
    render() {
        const {products, total} = this.state;
 
+       let edit;
+       if (order.isCurrent) {
+           edit = <UpdateCart order={order} />
+       }
+    
+
        return(
            <div>
                <h2>Your Cart</h2>
                {products.map((product, idx) => 
-               <CartData product={product} remove={removeItem} key={idx} />
+               <CartData product={product} key={idx} />
                )}
+               <div>
+                   <button><Checkout /></button>
+               </div>
            </div>
        )
    }
