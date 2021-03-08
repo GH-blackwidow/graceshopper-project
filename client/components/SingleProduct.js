@@ -1,14 +1,11 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {fetchSingleProduct} from '../store/singleProduct'
+import Cart from './Cart'
 
 class SingleProduct extends Component {
   componentDidMount() {
-    try {
-      this.props.loadSingleProduct(this.props.match.params.productId)
-    } catch (error) {
-      console.log(error)
-    }
+    this.props.loadSingleProduct(this.props.match.params.productId)
   }
 
   render() {
@@ -17,6 +14,7 @@ class SingleProduct extends Component {
       <div id="single-product">
         <h2>{product.name}</h2>
         <h4>Price:{product.price}</h4>
+        <Cart props={this.props} />
         <h4>Description: </h4>
         <p>Alcohol Content: {product.alcoholContent}</p>
         <p>Ounces: {product.ounces}</p>
