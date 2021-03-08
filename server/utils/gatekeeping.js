@@ -1,7 +1,4 @@
-
-
-
-const {User, Order} = require('../db/models')
+const {Users, Order} = require('../db/models')
 const verifyAdmin = (req, res, next) => {
   if (req.user && req.user.isAdmin) {
     next()
@@ -13,7 +10,7 @@ const verifyAdmin = (req, res, next) => {
 }
 
 const verifyCorrectUser = async (req, res, next) => {
-  const user = await User.findOne({
+  const user = await Users.findOne({
     where: {
       id: req.user.id
     },
