@@ -43,26 +43,25 @@ router.get('/:userId', verifyCorrectUser, async (req, res, next) => {
 //route to update cart in total (add & deletes & creation)
 router.put('/:userId', verifyCorrectUser, async (req, res, next) => {
   try {
-    req.session.cart = req.body //update everyone's session with new cart data
+    req.session.cart = req.body //update session with new cart data
     const {userId} = req.params
     //only update/create instance if someone is an user
+    const currentOrder = await cartItem(userId)
     if (userId) {
-      const currentOrder = await cartItem(userId)
-      if (userId) {
-        currentOrder
-          ? await currentOrder.update(req.body)
-          : await Order.create({
-              userId: userId,
-              productId: req.body.productId,
-              quantity: req.body.quantity
-            })
-      }
+      currentOrder
+        ? await currentOrder.update(req.body)
+        : await Order.create({
+            userId: userId,
+            productId: req.body.productId,
+            quantity: req.body.quantity
+          })
     }
     res.sendStatus(204)
   } catch (error) {
     next(error)
   }
 })
+
 //add route updates the order quantity
 router.post('/add', verifyCorrectUser, async (req, res, next) => {
   const productData = await Product.findById(req.body.productId)
