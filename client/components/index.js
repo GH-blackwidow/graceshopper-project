@@ -9,5 +9,6 @@ export {default as HomePage} from './HomePage'
 export {default as SingleProduct} from './SingleProduct'
 export {default as AllProducts} from './AllProducts'
 export {default as Cart} from './Cart'
+export {default as Checkout} from './Checkout'
 
 export {Login, Signup} from './auth-form'
