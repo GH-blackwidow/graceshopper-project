@@ -1,12 +1,15 @@
 import axios from 'axios'
+//action creator
 const SET_SINGLE_PRODUCT = 'SET_SINGLE_PRODUCT'
-
 const setSingleProduct = product => {
   return {
     type: SET_SINGLE_PRODUCT,
     product
   }
 }
+
+//thunk creator
+
 export const fetchSingleProduct = productId => {
   return async dispatch => {
     try {
@@ -18,7 +21,7 @@ export const fetchSingleProduct = productId => {
   }
 }
 const initialState = {}
-
+//reducer
 export default (state = initialState, action) => {
   switch (action.type) {
     case SET_SINGLE_PRODUCT:

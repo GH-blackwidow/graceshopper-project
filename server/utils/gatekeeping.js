@@ -1,7 +1,4 @@
-
-
-
-const {User, Order} = require('../db/models')
+const {Users, Order} = require('../db/models')
 const verifyAdmin = (req, res, next) => {
   if (req.user && req.user.isAdmin) {
     next()
@@ -13,15 +10,15 @@ const verifyAdmin = (req, res, next) => {
 }
 
 const verifyCorrectUser = async (req, res, next) => {
-  const user = await User.findOne({
+  const order = await Order.findOne({
     where: {
-      id: req.user.id
+      id: req.order.id
     },
     include: {
-      model: Order
+      model: Users
     }
   })
-  if (user.order.id === req.params.orderId) {
+  if (order.userId === req.params.user.id) {
     next()
   } else {
     const err = new Error('Unauthorized')
