@@ -14,7 +14,7 @@ class SingleProduct extends Component {
       <div id="single-product">
         <h2>{product.name}</h2>
         <h4>Price:{product.price}</h4>
-        <CartButton productId={product.id} />
+        <CartButton user={this.props.user} productId={product.id} />
         <h4>Description: </h4>
         <p>Alcohol Content: {product.alcoholContent}</p>
         <p>Ounces: {product.ounces}</p>

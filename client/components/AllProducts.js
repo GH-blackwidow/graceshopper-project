@@ -2,6 +2,7 @@ import React from 'react'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 import {fetchProducts} from '../store/Products'
+import CartButton from './CartButton'
 
 export class AllProducts extends React.Component {
   componentDidMount() {
@@ -25,6 +26,7 @@ export class AllProducts extends React.Component {
               <h3>Beer Name:{product.name}</h3>
               View
             </Link>
+            <CartButton productId={product.id} />
             <h4>
               Price
               <strong>:{product.price}</strong>

@@ -126,6 +126,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 /* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
 /* harmony import */ var _store_Products__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../store/Products */ "./client/store/Products.js");
+/* harmony import */ var _CartButton__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./CartButton */ "./client/components/CartButton.js");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -143,6 +144,7 @@ function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.g
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
 
 
 
@@ -181,7 +183,9 @@ function (_React$Component) {
           style: {
             width: '200px'
           }
-        }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, "Beer Name:", product.name), "View"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h4", null, "Price", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("strong", null, ":", product.price)));
+        }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, "Beer Name:", product.name), "View"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_CartButton__WEBPACK_IMPORTED_MODULE_4__["default"], {
+          productId: product.id
+        }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h4", null, "Price", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("strong", null, ":", product.price)));
       }));
     }
   }]);
@@ -361,7 +365,7 @@ function (_Component) {
   _createClass(CartButton, [{
     key: "handleOnClick",
     value: function handleOnClick() {
-      this.props.editCart(this.props.productId);
+      this.props.editCart(this.props.user.id, this.props.product);
       react_toastify__WEBPACK_IMPORTED_MODULE_3__["toast"].success('Item Added To Cart', {
         position: 'top-right',
         autoClose: 3000,
@@ -372,6 +376,7 @@ function (_Component) {
   }, {
     key: "render",
     value: function render() {
+      console.log('user---->', this.props.user);
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
         type: "button",
         onClick: this.handleOnClick,
@@ -383,15 +388,21 @@ function (_Component) {
   return CartButton;
 }(react__WEBPACK_IMPORTED_MODULE_0__["Component"]);
 
+var mapState = function mapState(state) {
+  return {
+    user: state.user
+  };
+};
+
 var mapDispatch = function mapDispatch(dispatch) {
   return {
-    editCart: function editCart(productId) {
-      dispatch(Object(_store_Cart__WEBPACK_IMPORTED_MODULE_2__["editCart"])(productId));
+    editCart: function editCart(userId, product) {
+      dispatch(Object(_store_Cart__WEBPACK_IMPORTED_MODULE_2__["editCart"])(userId, product));
     }
   };
 };
 
-/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_1__["connect"])(null, mapDispatch)(CartButton));
+/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_1__["connect"])(mapState, mapDispatch)(CartButton));
 
 /***/ }),
 
@@ -482,6 +493,7 @@ function (_Component) {
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         id: "single-product"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", null, product.name), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h4", null, "Price:", product.price), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_CartButton__WEBPACK_IMPORTED_MODULE_3__["default"], {
+        user: this.props.user,
         productId: product.id
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h4", null, "Description: "), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "Alcohol Content: ", product.alcoholContent), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "Ounces: ", product.ounces), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
         src: product.imgUrl,
@@ -45349,7 +45361,7 @@ function warning(message) {
 /*!***************************************************************!*\
   !*** ./node_modules/react-router-dom/esm/react-router-dom.js ***!
   \***************************************************************/
-/*! exports provided: BrowserRouter, HashRouter, Link, NavLink, MemoryRouter, Prompt, Redirect, Route, Router, StaticRouter, Switch, generatePath, matchPath, withRouter, __RouterContext */
+/*! exports provided: MemoryRouter, Prompt, Redirect, Route, Router, StaticRouter, Switch, generatePath, matchPath, withRouter, __RouterContext, BrowserRouter, HashRouter, Link, NavLink */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";

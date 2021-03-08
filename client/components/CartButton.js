@@ -10,7 +10,7 @@ class CartButton extends Component {
   }
 
   handleOnClick() {
-    this.props.editCart(this.props.productId)
+    this.props.editCart(this.props.user.id, this.props.product)
     toast.success('Item Added To Cart', {
       position: 'top-right',
       autoClose: 3000,
@@ -20,6 +20,7 @@ class CartButton extends Component {
   }
 
   render() {
+    console.log('user---->', this.props.user)
     return (
       <div>
         <button type="button" onClick={this.handleOnClick} className="button">
@@ -29,13 +30,17 @@ class CartButton extends Component {
     )
   }
 }
-
+const mapState = state => {
+  return {
+    user: state.user
+  }
+}
 const mapDispatch = dispatch => {
   return {
-    editCart(productId) {
-      dispatch(editCart(productId))
+    editCart(userId, product) {
+      dispatch(editCart(userId, product))
     }
   }
 }
 
-export default connect(null, mapDispatch)(CartButton)
+export default connect(mapState, mapDispatch)(CartButton)
