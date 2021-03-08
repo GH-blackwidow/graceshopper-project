@@ -1,5 +1,5 @@
-import React from 'react';
-import beershopper from './public/beershopper.png';
+import React from 'react'
+// import beershopper from './public/beershopper.png'
 
 function HomePage() {
   return (
@@ -7,7 +7,7 @@ function HomePage() {
       <h1>Welcome to our Grace Hopper homepage! </h1>
       <h3>The hoppiest place on the web! </h3>
       <img
-        src={beershopper}
+        // src={beershopper}
         alt="beermagic"
         style={{width: '500px'}}
       />

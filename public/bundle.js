@@ -211,18 +211,14 @@ var mapDispatch = function mapDispatch(dispatch) {
 /*!***********************************!*\
   !*** ./client/components/Cart.js ***!
   \***********************************/
-/*! exports provided: Cart, default */
+/*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Cart", function() { return Cart; });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
-/* harmony import */ var _store_Cart__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../store/Cart */ "./client/store/Cart.js");
-/* harmony import */ var _CartData__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./CartData */ "./client/components/CartData.js");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -233,24 +229,19 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
 function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
 
-function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
-
 function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-
-
-
-
- //localStorage- stores data with no expiration data
-//sessionsStorage- stores data for one session-data deleted when tab is closed
-//storage.getItem()- when passed a key name, will return that key's value, or null if the key does not exist
-//.then- returns a promise
+ // import {Link} from 'react-router-dom'
+// import CartData from './CartData'
+// import Checkout from './Checkout'
+// import {fetchCart, editCart} from '../store/Cart'
 
 var Cart =
 /*#__PURE__*/
@@ -263,153 +254,55 @@ function (_React$Component) {
     _classCallCheck(this, Cart);
 
     _this = _possibleConstructorReturn(this, _getPrototypeOf(Cart).call(this, props));
-
-    _defineProperty(_assertThisInitialized(_this), "clearCart", function () {
-      localStorage.removeItem('cart');
-
-      _this.setState({
-        products: []
-      });
-    });
-
     _this.state = {
-      products: [],
-      total: 0
+      product: []
     };
     return _this;
-  }
+  } //   componentDidMount() {
+  //     this.props.user
+  //       ? this.props.fetchCart(this.props.user.userId)
+  //       : this.props.fetchCart(null)
+  //   }
+  //removes the whole cart(button or method)
+  //   clearCart = () => {
+  //     this.props.user
+  //       ? this.props.editCart(this.props.user.userId, {})
+  //       : this.props.editCart(null, {})
+  //   }
+  //   handleCheckout = () => {
+  //     this.props.cart.isCurrent = false
+  //     this.props.user
+  //       ? this.props.editCart(this.props.user, this.props.cart)
+  //       : this.props.editCart(null, {})
+  //     window.location.href = '/checkout'
+  //   }
+
 
   _createClass(Cart, [{
-    key: "componentDidMount",
-    value: function componentDidMount() {
-      var _this2 = this;
-
-      this.props.fetchCart();
-      var cart = localStorage.getItem('order');
-      if (!cart) return;
-      getCart(cart).then(function (products) {
-        var total = 0;
-
-        for (var i = 0; i < products.length; i++) {
-          total += products[i].price * products[i].quantity;
-        }
-
-        _this2.setState({
-          products: products,
-          total: total
-        });
-      });
-    }
-  }, {
     key: "render",
     value: function render() {
-      var _this$state = this.state,
-          products = _this$state.products,
-          total = _this$state.total;
-      var edit;
+      // console.log('props===>', this.props)
+      // console.log('state====>', this.state)
+      var cart = this.props.cart; // const products = cart.products || []
 
-      if (order.isCurrent) {
-        edit = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(UpdateCart, {
-          order: order
-        });
-      }
-
-      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", null, "Your Cart"), products.map(function (product, idx) {
-        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_CartData__WEBPACK_IMPORTED_MODULE_4__["default"], {
-          product: product,
-          key: idx
-        });
-      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Checkout, null))));
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", null, "Your Cart"));
     }
   }]);
 
   return Cart;
-}(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
-
-var mapDispatch = function mapDispatch(dispatch) {
-  return {
-    fetchCart: function fetchCart(userId) {
-      return dispatch(Object(_store_Cart__WEBPACK_IMPORTED_MODULE_3__["fetchCart"])(userId));
-    },
-    editCart: function editCart(userId, newCart) {
-      return dispatch(Object(_store_Cart__WEBPACK_IMPORTED_MODULE_3__["editCart"])(userId, newCart));
-    }
-  };
-};
-
-/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_1__["connect"])(null, mapDispatch)(Cart));
-
-/***/ }),
-
-/***/ "./client/components/CartData.js":
-/*!***************************************!*\
-  !*** ./client/components/CartData.js ***!
-  \***************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return CartData; });
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
-
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
-
-function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
-
-function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
-
-function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
-
-function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+}(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component); // const mapState = (state) => {
+//   return {
+//     user: state.user,
+//     cart: state.cart,
+//   }
+// }
+// const mapDispatch = (dispatch) => ({
+//   fetchCart: (userId) => dispatch(fetchCart(userId)),
+//   editCart: (userId, newCart) => dispatch(editCart(userId, newCart)),
+// })
 
 
-
-var CartData =
-/*#__PURE__*/
-function (_React$Component) {
-  _inherits(CartData, _React$Component);
-
-  function CartData(props) {
-    var _this;
-
-    _classCallCheck(this, CartData);
-
-    _this = _possibleConstructorReturn(this, _getPrototypeOf(CartData).call(this, props));
-    _this.state = {
-      quantity: 1
-    };
-    return _this;
-  }
-
-  _createClass(CartData, [{
-    key: "render",
-    value: function render() {
-      var _this2 = this;
-
-      var product = this.props.product;
-      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        id: "cart"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, product.name), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h4", null, "Price: $", product.price), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h4", null, "Quantity:", product.quantity), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
-        onClick: function onClick() {
-          return _this2.props.remove(product);
-        }
-      }, "Remove Item"));
-    }
-  }]);
-
-  return CartData;
-}(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
-
-
+/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_1__["connect"])(null, null)(Cart));
 
 /***/ }),
 
@@ -424,13 +317,11 @@ function (_React$Component) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-!(function webpackMissingModule() { var e = new Error("Cannot find module './public/beershopper.png'"); e.code = 'MODULE_NOT_FOUND'; throw e; }());
-
-
+ // import beershopper from './public/beershopper.png'
 
 function HomePage() {
   return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, "Welcome to our Grace Hopper homepage! "), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, "The hoppiest place on the web! "), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
-    src: !(function webpackMissingModule() { var e = new Error("Cannot find module './public/beershopper.png'"); e.code = 'MODULE_NOT_FOUND'; throw e; }()),
+    // src={beershopper}
     alt: "beermagic",
     style: {
       width: '500px'
@@ -941,6 +832,9 @@ function (_Component) {
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Route"], {
         path: "/cart",
         component: _components__WEBPACK_IMPORTED_MODULE_4__["Cart"]
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Route"], {
+        path: "/checkout",
+        component: _components__WEBPACK_IMPORTED_MODULE_4__["Checkout"]
       }), isLoggedIn && react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Switch"], null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Route"], {
         component: _components__WEBPACK_IMPORTED_MODULE_4__["Login"]
       }));

@@ -1,4 +1,5 @@
 import React from 'react'
+import UpdateCart from './UpdateCart'
 
 export default class CartData extends React.Component {
   constructor(props) {
@@ -13,6 +14,7 @@ export default class CartData extends React.Component {
         <h3>{product.name}</h3>
         <h4>Price: ${product.price}</h4>
         <h4>Quantity:{product.quantity}</h4>
+        <UpdateCart />
         <button onClick={() => this.props.remove(product)}>Remove Item</button>
       </div>
     )
