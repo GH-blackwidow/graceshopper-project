@@ -1261,15 +1261,25 @@ socket.on('connect', function () {
 /*!******************************!*\
   !*** ./client/store/Cart.js ***!
   \******************************/
-/*! exports provided: fetchCart, editCart, default */
+/*! exports provided: fetchCart, editCart, addToCartThunk, deleteFromCartThunk, default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchCart", function() { return fetchCart; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "editCart", function() { return editCart; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "addToCartThunk", function() { return addToCartThunk; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "deleteFromCartThunk", function() { return deleteFromCartThunk; });
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _nonIterableSpread(); }
+
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance"); }
+
+function _iterableToArray(iter) { if (Symbol.iterator in Object(iter) || Object.prototype.toString.call(iter) === "[object Arguments]") return Array.from(iter); }
+
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = new Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } }
+
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
@@ -1277,7 +1287,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
  //ACTION TYPE
 
 var GET_CART = 'GET_CART';
-var UPDATE_CART = 'UPDATE_CART'; //ACTION CREATORS
+var UPDATE_CART = 'UPDATE_CART';
+var ADD_TO_CART = 'ADD_TO_CART';
+var DELETE_FROM_CART = 'DELETE_FROM_CART'; //ACTION CREATORS
 
 var getCart = function getCart(cart) {
   return {
@@ -1290,6 +1302,20 @@ var updateCart = function updateCart(newCart) {
   return {
     type: UPDATE_CART,
     newCart: newCart
+  };
+};
+
+var addToCart = function addToCart(item) {
+  return {
+    type: ADD_TO_CART,
+    item: item
+  };
+};
+
+var deleteFromCart = function deleteFromCart(deletedItem) {
+  return {
+    type: DELETE_FROM_CART,
+    deletedItem: deletedItem
   };
 }; //THUNK CREATORS
 //pass null to userId if someone is not signed in
@@ -1374,6 +1400,100 @@ var editCart = function editCart(userId, newCart) {
       };
     }()
   );
+};
+var addToCartThunk = function addToCartThunk(orderId, item) {
+  return (
+    /*#__PURE__*/
+    function () {
+      var _ref3 = _asyncToGenerator(
+      /*#__PURE__*/
+      regeneratorRuntime.mark(function _callee3(dispatch) {
+        var _ref4, data;
+
+        return regeneratorRuntime.wrap(function _callee3$(_context3) {
+          while (1) {
+            switch (_context3.prev = _context3.next) {
+              case 0:
+                _context3.prev = 0;
+                _context3.next = 3;
+                return axios__WEBPACK_IMPORTED_MODULE_0___default.a.put("/api/cart/".concat(orderId), item);
+
+              case 3:
+                _ref4 = _context3.sent;
+                data = _ref4.data;
+
+                if (data) {
+                  dispatch(addToCart(data));
+                }
+
+                _context3.next = 11;
+                break;
+
+              case 8:
+                _context3.prev = 8;
+                _context3.t0 = _context3["catch"](0);
+                console.log('add to cart thunk error: ', _context3.t0);
+
+              case 11:
+              case "end":
+                return _context3.stop();
+            }
+          }
+        }, _callee3, null, [[0, 8]]);
+      }));
+
+      return function (_x3) {
+        return _ref3.apply(this, arguments);
+      };
+    }()
+  );
+};
+var deleteFromCartThunk = function deleteFromCartThunk(orderId, item) {
+  return (
+    /*#__PURE__*/
+    function () {
+      var _ref5 = _asyncToGenerator(
+      /*#__PURE__*/
+      regeneratorRuntime.mark(function _callee4(dispatch) {
+        var _ref6, data;
+
+        return regeneratorRuntime.wrap(function _callee4$(_context4) {
+          while (1) {
+            switch (_context4.prev = _context4.next) {
+              case 0:
+                _context4.prev = 0;
+                _context4.next = 3;
+                return axios__WEBPACK_IMPORTED_MODULE_0___default.a["delete"]("/api/cart/".concat(orderId), item);
+
+              case 3:
+                _ref6 = _context4.sent;
+                data = _ref6.data;
+
+                if (data) {
+                  dispatch(deleteFromCart(data));
+                }
+
+                _context4.next = 11;
+                break;
+
+              case 8:
+                _context4.prev = 8;
+                _context4.t0 = _context4["catch"](0);
+                console.log('add to cart thunk error: ', _context4.t0);
+
+              case 11:
+              case "end":
+                return _context4.stop();
+            }
+          }
+        }, _callee4, null, [[0, 8]]);
+      }));
+
+      return function (_x4) {
+        return _ref5.apply(this, arguments);
+      };
+    }()
+  );
 }; //INITIAL STATE
 
 var defaultCart = {}; //REDUCER
@@ -1385,6 +1505,18 @@ var defaultCart = {}; //REDUCER
   switch (action.type) {
     case GET_CART:
       return action.cart;
+
+    case ADD_TO_CART:
+      return [].concat(_toConsumableArray(state), [action.item]);
+
+    case DELETE_FROM_CART:
+      var newCart = [];
+      action.cart.forEach(function (item) {
+        if (item !== action.deletedItem) {
+          newCart.push(item);
+        }
+      });
+      return newCart;
 
     case UPDATE_CART:
       return action.newCart;
