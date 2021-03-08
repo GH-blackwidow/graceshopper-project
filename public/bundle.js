@@ -351,6 +351,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_toastify__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-toastify */ "./node_modules/react-toastify/dist/react-toastify.esm.js");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(source, true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(source).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
@@ -383,14 +389,43 @@ function (_Component) {
     _classCallCheck(this, CartButton);
 
     _this = _possibleConstructorReturn(this, _getPrototypeOf(CartButton).call(this));
+    _this.state = {
+      cart: {}
+    };
     _this.handleOnClick = _this.handleOnClick.bind(_assertThisInitialized(_this));
+    _this.handleChange = _this.handleChange.bind(_assertThisInitialized(_this));
     return _this;
   }
 
   _createClass(CartButton, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      this.setState({
+        cart: this.props.cart
+      });
+    }
+  }, {
+    key: "handleChange",
+    value: function handleChange(evt) {
+      if (this.state.cart[evt.target.name] !== undefined) {
+        var newQuantity = this.state.cart[evt.target.name] + 1;
+        this.setState({
+          cart: _objectSpread({}, this.state.cart, _defineProperty({}, evt.target.name, newQuantity))
+        });
+      } else {
+        this.setState({
+          cart: _objectSpread({}, this.state.cart, _defineProperty({}, evt.target.name, 1))
+        });
+      }
+    }
+  }, {
     key: "handleOnClick",
-    value: function handleOnClick() {
-      this.props.editCart(this.props.user.id, this.props.product);
+    value: function handleOnClick(evt) {
+      evt.preventDefault();
+      this.handleChange(evt);
+      this.props.editCart(this.props.user.id, _objectSpread({}, this.state.cart, {
+        isCurrent: true
+      }));
       react_toastify__WEBPACK_IMPORTED_MODULE_3__["toast"].success('Item Added To Cart', {
         position: 'top-right',
         autoClose: 3000,
@@ -401,10 +436,18 @@ function (_Component) {
   }, {
     key: "render",
     value: function render() {
+      var _this2 = this;
+
+      var _this$props = this.props,
+          user = _this$props.user,
+          productId = _this$props.productId;
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
         type: "button",
-        onClick: this.handleOnClick,
-        className: "button"
+        onClick: function onClick(evt) {
+          return _this2.handleOnClick(evt);
+        },
+        className: "button",
+        name: productId
       }, "ADD TO CART"));
     }
   }]);
@@ -414,14 +457,15 @@ function (_Component) {
 
 var mapState = function mapState(state) {
   return {
-    user: state.user
+    user: state.user,
+    cart: state.cart
   };
 };
 
 var mapDispatch = function mapDispatch(dispatch) {
   return {
-    editCart: function editCart(userId, product) {
-      dispatch(Object(_store_Cart__WEBPACK_IMPORTED_MODULE_2__["editCart"])(userId, product));
+    editCart: function editCart(userId, cart) {
+      dispatch(Object(_store_Cart__WEBPACK_IMPORTED_MODULE_2__["editCart"])(userId, cart));
     }
   };
 };
@@ -669,6 +713,7 @@ function (_Component) {
 
 var mapStateToProps = function mapStateToProps(state) {
   return {
+    cart: state.cart,
     product: state.singleProduct
   };
 };
@@ -1374,25 +1419,27 @@ var editCart = function editCart(userId, newCart) {
             switch (_context2.prev = _context2.next) {
               case 0:
                 _context2.prev = 0;
-                _context2.next = 3;
+                console.log('this is my thunks');
+                _context2.next = 4;
                 return axios__WEBPACK_IMPORTED_MODULE_0___default.a.put("/api/cart/".concat(userId), newCart);
 
-              case 3:
+              case 4:
+                console.log(newCart);
                 dispatch(updateCart(newCart));
-                _context2.next = 9;
+                _context2.next = 11;
                 break;
 
-              case 6:
-                _context2.prev = 6;
+              case 8:
+                _context2.prev = 8;
                 _context2.t0 = _context2["catch"](0);
                 console.log('Can not update cart', _context2.t0);
 
-              case 9:
+              case 11:
               case "end":
                 return _context2.stop();
             }
           }
-        }, _callee2, null, [[0, 6]]);
+        }, _callee2, null, [[0, 8]]);
       }));
 
       return function (_x2) {
@@ -1509,16 +1556,8 @@ var defaultCart = {}; //REDUCER
     case ADD_TO_CART:
       return [].concat(_toConsumableArray(state), [action.item]);
 
-    case DELETE_FROM_CART:
-      var newCart = [];
-      action.cart.forEach(function (item) {
-        if (item !== action.deletedItem) {
-          newCart.push(item);
-        }
-      });
-      return newCart;
-
     case UPDATE_CART:
+      console.log('updating cart');
       return action.newCart;
 
     default:
@@ -45753,7 +45792,7 @@ function warning(message) {
 /*!***************************************************************!*\
   !*** ./node_modules/react-router-dom/esm/react-router-dom.js ***!
   \***************************************************************/
-/*! exports provided: BrowserRouter, HashRouter, Link, NavLink, MemoryRouter, Prompt, Redirect, Route, Router, StaticRouter, Switch, generatePath, matchPath, withRouter, __RouterContext */
+/*! exports provided: MemoryRouter, Prompt, Redirect, Route, Router, StaticRouter, Switch, generatePath, matchPath, withRouter, __RouterContext, BrowserRouter, HashRouter, Link, NavLink */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";

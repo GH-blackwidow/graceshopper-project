@@ -25,6 +25,7 @@ class SingleProduct extends Component {
 }
 const mapStateToProps = state => {
   return {
+    cart: state.cart,
     product: state.singleProduct
   }
 }
