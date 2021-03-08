@@ -75,7 +75,8 @@ router.post('/add', verifyCorrectUser, async (req, res, next) => {
     await Order.create({
       userId: req.user.id,
       productId: req.body.productId,
-      quantity: req.body.quantity
+      quantity: req.body.quantity,
+      isCurrent: true
     })
 
     const cart = await cartItem(req.user.id)
