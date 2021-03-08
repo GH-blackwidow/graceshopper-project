@@ -36,7 +36,9 @@ export const fetchCart = userId => async dispatch => {
 }
 export const editCart = (userId, newCart) => async dispatch => {
   try {
+    console.log('this is my thunks')
     await axios.put(`/api/cart/${userId}`, newCart)
+    console.log(newCart)
     dispatch(updateCart(newCart))
   } catch (err) {
     console.log('Can not update cart', err)
@@ -77,15 +79,8 @@ export default function(state = defaultCart, action) {
       return action.cart
     case ADD_TO_CART:
       return [...state, action.item]
-    case DELETE_FROM_CART:
-      let newCart = []
-      action.cart.forEach(item => {
-        if (item !== action.deletedItem) {
-          newCart.push(item)
-        }
-      })
-      return newCart
     case UPDATE_CART:
+      console.log('updating cart')
       return action.newCart
     default:
       return state

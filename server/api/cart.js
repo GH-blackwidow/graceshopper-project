@@ -41,19 +41,20 @@ router.get('/:userId', verifyCorrectUser, async (req, res, next) => {
 })
 
 //route to update cart in total (add & deletes & creation)
-router.put('/:userId', verifyCorrectUser, async (req, res, next) => {
+router.put('/:userId', async (req, res, next) => {
   try {
     req.session.cart = req.body //update session with new cart data
     const {userId} = req.params
     //only update/create instance if someone is an user
     const currentOrder = await cartItem(userId)
     if (userId) {
-      currentOrder
-        ? await currentOrder.update(req.body)
+      currentOrder.length > 1
+        ? await currentOrder.update({...req.body, userId: userId})
         : await Order.create({
             userId: userId,
             productId: req.body.productId,
-            quantity: req.body.quantity
+            quantity: req.body.quantity,
+            isCurrent: true
           })
     }
     res.sendStatus(204)
