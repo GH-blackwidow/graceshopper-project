@@ -274,32 +274,34 @@ function (_React$Component) {
     key: "componentDidMount",
     value: function componentDidMount() {
       this.props.fetchCart(this.props.user.id);
-    } // removes the whole cart(button or method)
-    // clearCart = () => {}
-    // handleCheckout = () => {
-    //   this.props.cart.isCurrent = false
-    //   this.props.user.id
-    //     ? this.props.editCart(this.props.user, this.props.cart)
-    //     : this.props.editCart(null, {})
-    //   window.location.href = '/checkout'
-    // }
-
+    }
   }, {
     key: "render",
     value: function render() {
       var cart = this.props.cart;
       var products = cart.products || [];
+      var subTotal = 0;
+
+      if (products.length !== 0) {
+        subTotal = products.map(function (product) {
+          return product.orderProducts.quantity * product.price;
+        }).reduce(function (a, b) {
+          return a + b;
+        }, 0).math.floor();
+      }
+
       var cartInfo = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, products.map(function (product) {
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_CartData__WEBPACK_IMPORTED_MODULE_3__["default"], {
           product: product,
           key: product.id
         });
-      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h4", null, "Total: ", subTotal), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
         type: "submit",
         onClick: this.handleCheckout
       }, "Checkout")));
       var cartDisplay = products.length === 0 ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "Your cart is empty") : cartInfo;
-      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", null, "Your Cart"), cartDisplay);
+      console.log('products--->', products);
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", null, "My Cart"), cartDisplay);
     }
   }]);
 
@@ -403,7 +405,6 @@ function (_Component) {
       var _this2 = this;
 
       var productId = this.props.productId;
-      console.log('CART INFORMATION', this.props.cart.products);
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
         type: "button",
         onClick: function onClick(evt) {
@@ -511,7 +512,13 @@ function (_React$Component) {
       });
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         id: "cart"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, product.name), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h4", null, "Price: $", product.price), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h4", null, "Quantity:", quantity), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, product.name), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+        src: product.imgUrl,
+        alt: product.name,
+        style: {
+          width: '100px'
+        }
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h4", null, "Price: $", product.price), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h4", null, "Quantity:", quantity), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
         type: "submit",
         onClick: function onClick() {
           return _this2.props.deleteFromCartThunk(product.orderProducts.orderId, product.id, user.id);
@@ -614,16 +621,12 @@ function (_React$Component) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
- // import beershopper from './public/beershopper.png'
+
 
 function HomePage() {
-  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, "Welcome to our Grace Hopper homepage! "), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, "The hoppiest place on the web! "), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
-    // src={beershopper}
-    alt: "beermagic",
-    style: {
-      width: '500px'
-    }
-  }));
+  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "logo"
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, "Welcome to our Grace Hopper homepage! "), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, "The hoppiest place on the web! "));
 }
 
 /* harmony default export */ __webpack_exports__["default"] = (HomePage);

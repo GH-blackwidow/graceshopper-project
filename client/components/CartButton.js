@@ -24,7 +24,6 @@ class CartButton extends Component {
 
   render() {
     const {productId} = this.props
-    console.log('CART INFORMATION', this.props.cart.products)
     return (
       <div>
         <button
