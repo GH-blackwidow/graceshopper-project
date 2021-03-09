@@ -1,6 +1,10 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {editCart} from '../store/Cart'
+import {
+  addToCartThunk,
+  decrementFromCartThunk,
+  deleteFromCartThunk
+} from '../store/Cart'
 
 class UpDateCart extends React.Component {
   constructor(props) {
@@ -40,7 +44,12 @@ class UpDateCart extends React.Component {
 }
 
 const mapDispatch = dispatch => ({
-  editCart: (userId, newCart) => dispatch(editCart(userId, newCart))
+  addToCartThunk: (userId, productId) =>
+    dispatch(addToCartThunk(userId, productId)),
+  decrementFromCartThunk: (userId, product) =>
+    dispatch(decrementFromCartThunk(userId, productId)),
+  deleteFromCartThunk: (orderId, itemId) =>
+    dispatch(deleteFromCartThunk(orderId, itemId))
 })
 
 export default connect(null, mapDispatch)(UpDateCart)

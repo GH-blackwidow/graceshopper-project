@@ -102,7 +102,7 @@ router.post('/add', async (req, res, next) => {
 
 //deletes product to cart or decrements current quantity
 //req.body: userId, productId
-router.post('/delete', async (req, res, next) => {
+router.post('/decrement', async (req, res, next) => {
   try {
     const {productId, userId} = req.body
     //if user is signed in
@@ -134,6 +134,17 @@ router.post('/checkout', async (req, res, next) => {
       const currentCart = await cartItem(userId)
       currentCart.update({isCurrent: false})
     }
+    res.sendStatus(204)
+  } catch (error) {
+    next(error)
+  }
+})
+
+//completely remove the product
+router.delete('/:orderId/:productId', async (req, res, next) => {
+  try {
+    const currentOrder = await Order.findByPk(req.params.orderId)
+    currentOrder.removeProduct(req.params.productId)
     res.sendStatus(204)
   } catch (error) {
     next(error)

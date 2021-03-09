@@ -3,40 +3,31 @@ import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 import CartData from './CartData'
 import Checkout from './Checkout'
-import {fetchCart, editCart} from '../store/Cart'
+import {fetchCart, checkoutFromCartThunk} from '../store/Cart'
 
 class Cart extends React.Component {
   constructor(props) {
     super(props)
-    this.state = {
-      product: []
-    }
+    this.state = {}
   }
   componentDidMount() {
-    this.props.user.id
-      ? this.props.fetchCart(this.props.user.id)
-      : this.props.fetchCart(null)
+    this.props.fetchCart(this.props.user.id)
   }
   // removes the whole cart(button or method)
-  clearCart = () => {
-    this.props.user
-      ? this.props.editCart(this.props.user.id, {})
-      : this.props.editCart(null, {})
-  }
-  handleCheckout = () => {
-    this.props.cart.isCurrent = false
-    this.props.user.id
-      ? this.props.editCart(this.props.user, this.props.cart)
-      : this.props.editCart(null, {})
-    window.location.href = '/checkout'
-  }
+  // clearCart = () => {}
+  // handleCheckout = () => {
+  //   this.props.cart.isCurrent = false
+  //   this.props.user.id
+  //     ? this.props.editCart(this.props.user, this.props.cart)
+  //     : this.props.editCart(null, {})
+  //   window.location.href = '/checkout'
+  // }
 
   render() {
     const {cart} = this.props
     const products = cart.products || []
-    return (
+    const cartInfo = (
       <div>
-        <h2>Your Cart</h2>
         {products.map(product => (
           <CartData product={product} key={product.id} />
         ))}
@@ -45,6 +36,14 @@ class Cart extends React.Component {
             Checkout
           </button>
         </div>
+      </div>
+    )
+    let cartDisplay =
+      products.length === 0 ? <p>Your cart is empty</p> : cartInfo
+    return (
+      <div>
+        <h2>Your Cart</h2>
+        {cartDisplay}
       </div>
     )
   }
@@ -58,7 +57,7 @@ const mapState = state => {
 
 const mapDispatch = dispatch => ({
   fetchCart: userId => dispatch(fetchCart(userId)),
-  editCart: (userId, newCart) => dispatch(editCart(userId, newCart))
+  checkoutFromCartThunk: userId => dispatch(checkoutFromCartThunk(userId))
 })
 
 export default connect(mapState, mapDispatch)(Cart)

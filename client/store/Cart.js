@@ -3,8 +3,9 @@ import axios from 'axios'
 //ACTION TYPE
 const GET_CART = 'GET_CART'
 const ADD_TO_CART = 'ADD_TO_CART'
-const DELETE_FROM_CART = 'DELETE_FROM_CART'
+const DECREMENT_FROM_CART = 'DECREMENT_FROM_CART'
 const CHECKOUT_FROM_CART = 'CHECKOUT_FROM_CART'
+const DELETE_FROM_CART = 'DELETE_FROM_CART'
 
 //ACTION CREATORS
 const getCart = cart => ({
@@ -15,13 +16,18 @@ const addToCart = newCart => ({
   type: ADD_TO_CART,
   newCart
 })
-const deleteFromCart = editedCart => ({
-  type: DELETE_FROM_CART,
+const decrementFromCart = editedCart => ({
+  type: DECREMENT_FROM_CART,
   editedCart
 })
 const checkoutFromCart = emptyCart => ({
   type: CHECKOUT_FROM_CART,
   emptyCart
+})
+
+const deleteFromCart = updatedCart => ({
+  type: DELETE_FROM_CART,
+  updatedCart
 })
 
 //THUNK CREATORS
@@ -46,12 +52,12 @@ export const addToCartThunk = (userId, productId) => {
     }
   }
 }
-export const deleteFromCartThunk = (userId, product) => {
+export const decrementFromCartThunk = (userId, product) => {
   return async dispatch => {
     try {
-      await axios.post(`/api/cart/delete`, {userId, product})
+      await axios.post(`/api/cart/decrement`, {userId, product})
       const {data} = await axios.get(`/api/cart/${userId}`)
-      dispatch(deleteFromCart(data))
+      dispatch(decrementFromCart(data))
     } catch (err) {
       console.log('add to cart thunk error: ', err)
     }
@@ -68,8 +74,21 @@ export const checkoutFromCartThunk = userId => {
   }
 }
 
+//Delete whole thing thunk
+export const deleteFromCartThunk = (orderId, itemId, userId) => {
+  return async dispatch => {
+    try {
+      await axios.delete(`api/cart/${orderId}/${itemId}`)
+      const {data} = await axios.get(`/api/cart/${userId}`)
+      dispatch(deleteFromCart(data))
+    } catch (err) {
+      console.log('delete from cart thunk error: ', err)
+    }
+  }
+}
+
 //INITIAL STATE
-const defaultCart = {}
+const defaultCart = []
 
 //REDUCER
 export default function(state = defaultCart, action) {
@@ -78,10 +97,12 @@ export default function(state = defaultCart, action) {
       return action.cart
     case ADD_TO_CART:
       return action.newCart
-    case DELETE_FROM_CART:
+    case DECREMENT_FROM_CART:
       return action.editedCart
     case CHECKOUT_FROM_CART:
       return action.emptyCart
+    case DELETE_FROM_CART:
+      return action.updatedCart
     default:
       return state
   }
