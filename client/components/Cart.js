@@ -32,8 +32,6 @@ class Cart extends React.Component {
   }
 
   render() {
-    console.log('props===>', this.props)
-    console.log('state====>', this.state)
     const {cart} = this.props
     const products = cart.products || []
     return (

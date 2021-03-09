@@ -1,40 +1,19 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import {editCart} from '../store/Cart'
+import {fetchCart, addToCartThunk} from '../store/Cart'
 import {toast} from 'react-toastify'
 
 class CartButton extends Component {
   constructor() {
     super()
-    this.state = {cart: {}}
     this.handleOnClick = this.handleOnClick.bind(this)
-    this.handleChange = this.handleChange.bind(this)
   }
   componentDidMount() {
-    this.setState({
-      cart: this.props.cart
-    })
+    this.props.fetchCart(this.props.user.id)
   }
-  handleChange(evt) {
-    if (this.state.cart[evt.target.name] !== undefined) {
-      const newQuantity = this.state.cart[evt.target.name] + 1
-      this.setState({
-        cart: {...this.state.cart, [evt.target.name]: newQuantity}
-      })
-    } else {
-      this.setState({
-        cart: {...this.state.cart, [evt.target.name]: 1}
-      })
-    }
-  }
-
   handleOnClick(evt) {
     evt.preventDefault()
-    this.handleChange(evt)
-    this.props.editCart(this.props.user.id, {
-      ...this.state.cart,
-      isCurrent: true
-    })
+    this.props.addToCart(this.props.user.id, this.props.productId)
     toast.success('Item Added To Cart', {
       position: 'top-right',
       autoClose: 3000,
@@ -44,7 +23,8 @@ class CartButton extends Component {
   }
 
   render() {
-    const {user, productId} = this.props
+    const {productId} = this.props
+    console.log('CART INFORMATION', this.props.cart.products)
     return (
       <div>
         <button
@@ -68,9 +48,8 @@ const mapState = state => {
 }
 const mapDispatch = dispatch => {
   return {
-    editCart(userId, cart) {
-      dispatch(editCart(userId, cart))
-    }
+    fetchCart: (userId, cart) => dispatch(fetchCart(userId, cart)),
+    addToCart: (userId, cart) => dispatch(addToCartThunk(userId, cart))
   }
 }
 
