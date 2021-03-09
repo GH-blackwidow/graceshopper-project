@@ -294,8 +294,6 @@ function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
-      console.log('props===>', this.props);
-      console.log('state====>', this.state);
       var cart = this.props.cart;
       var products = cart.products || [];
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", null, "Your Cart"), products.map(function (product) {
@@ -351,12 +349,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_toastify__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-toastify */ "./node_modules/react-toastify/dist/react-toastify.esm.js");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
-function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
-
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(source, true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(source).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
@@ -389,43 +381,20 @@ function (_Component) {
     _classCallCheck(this, CartButton);
 
     _this = _possibleConstructorReturn(this, _getPrototypeOf(CartButton).call(this));
-    _this.state = {
-      cart: {}
-    };
     _this.handleOnClick = _this.handleOnClick.bind(_assertThisInitialized(_this));
-    _this.handleChange = _this.handleChange.bind(_assertThisInitialized(_this));
     return _this;
   }
 
   _createClass(CartButton, [{
     key: "componentDidMount",
     value: function componentDidMount() {
-      this.setState({
-        cart: this.props.cart
-      });
-    }
-  }, {
-    key: "handleChange",
-    value: function handleChange(evt) {
-      if (this.state.cart[evt.target.name] !== undefined) {
-        var newQuantity = this.state.cart[evt.target.name] + 1;
-        this.setState({
-          cart: _objectSpread({}, this.state.cart, _defineProperty({}, evt.target.name, newQuantity))
-        });
-      } else {
-        this.setState({
-          cart: _objectSpread({}, this.state.cart, _defineProperty({}, evt.target.name, 1))
-        });
-      }
+      this.props.fetchCart(this.props.user.id);
     }
   }, {
     key: "handleOnClick",
     value: function handleOnClick(evt) {
       evt.preventDefault();
-      this.handleChange(evt);
-      this.props.editCart(this.props.user.id, _objectSpread({}, this.state.cart, {
-        isCurrent: true
-      }));
+      this.props.addToCart(this.props.user.id, this.props.productId);
       react_toastify__WEBPACK_IMPORTED_MODULE_3__["toast"].success('Item Added To Cart', {
         position: 'top-right',
         autoClose: 3000,
@@ -438,9 +407,8 @@ function (_Component) {
     value: function render() {
       var _this2 = this;
 
-      var _this$props = this.props,
-          user = _this$props.user,
-          productId = _this$props.productId;
+      var productId = this.props.productId;
+      console.log('CART INFORMATION', this.props.cart.products);
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
         type: "button",
         onClick: function onClick(evt) {
@@ -464,8 +432,11 @@ var mapState = function mapState(state) {
 
 var mapDispatch = function mapDispatch(dispatch) {
   return {
-    editCart: function editCart(userId, cart) {
-      dispatch(Object(_store_Cart__WEBPACK_IMPORTED_MODULE_2__["editCart"])(userId, cart));
+    fetchCart: function fetchCart(userId, cart) {
+      return dispatch(Object(_store_Cart__WEBPACK_IMPORTED_MODULE_2__["fetchCart"])(userId, cart));
+    },
+    addToCart: function addToCart(userId, cart) {
+      return dispatch(Object(_store_Cart__WEBPACK_IMPORTED_MODULE_2__["addToCartThunk"])(userId, cart));
     }
   };
 };
@@ -1306,25 +1277,17 @@ socket.on('connect', function () {
 /*!******************************!*\
   !*** ./client/store/Cart.js ***!
   \******************************/
-/*! exports provided: fetchCart, editCart, addToCartThunk, deleteFromCartThunk, default */
+/*! exports provided: fetchCart, addToCartThunk, deleteFromCartThunk, checkoutFromCartThunk, default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchCart", function() { return fetchCart; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "editCart", function() { return editCart; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "addToCartThunk", function() { return addToCartThunk; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "deleteFromCartThunk", function() { return deleteFromCartThunk; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "checkoutFromCartThunk", function() { return checkoutFromCartThunk; });
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
-function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _nonIterableSpread(); }
-
-function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance"); }
-
-function _iterableToArray(iter) { if (Symbol.iterator in Object(iter) || Object.prototype.toString.call(iter) === "[object Arguments]") return Array.from(iter); }
-
-function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = new Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } }
-
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
@@ -1332,9 +1295,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
  //ACTION TYPE
 
 var GET_CART = 'GET_CART';
-var UPDATE_CART = 'UPDATE_CART';
 var ADD_TO_CART = 'ADD_TO_CART';
-var DELETE_FROM_CART = 'DELETE_FROM_CART'; //ACTION CREATORS
+var DELETE_FROM_CART = 'DELETE_FROM_CART';
+var CHECKOUT_FROM_CART = 'CHECKOUT_FROM_CART'; //ACTION CREATORS
 
 var getCart = function getCart(cart) {
   return {
@@ -1343,24 +1306,24 @@ var getCart = function getCart(cart) {
   };
 };
 
-var updateCart = function updateCart(newCart) {
+var addToCart = function addToCart(newCart) {
   return {
-    type: UPDATE_CART,
+    type: ADD_TO_CART,
     newCart: newCart
   };
 };
 
-var addToCart = function addToCart(item) {
+var deleteFromCart = function deleteFromCart(editedCart) {
   return {
-    type: ADD_TO_CART,
-    item: item
+    type: DELETE_FROM_CART,
+    editedCart: editedCart
   };
 };
 
-var deleteFromCart = function deleteFromCart(deletedItem) {
+var checkoutFromCart = function checkoutFromCart(emptyCart) {
   return {
-    type: DELETE_FROM_CART,
-    deletedItem: deletedItem
+    type: CHECKOUT_FROM_CART,
+    emptyCart: emptyCart
   };
 }; //THUNK CREATORS
 //pass null to userId if someone is not signed in
@@ -1373,7 +1336,8 @@ var fetchCart = function fetchCart(userId) {
       var _ref = _asyncToGenerator(
       /*#__PURE__*/
       regeneratorRuntime.mark(function _callee(dispatch) {
-        var cart;
+        var _ref2, data;
+
         return regeneratorRuntime.wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
@@ -1383,22 +1347,23 @@ var fetchCart = function fetchCart(userId) {
                 return axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("/api/cart/".concat(userId));
 
               case 3:
-                cart = _context.sent;
-                dispatch(getCart(cart));
-                _context.next = 10;
+                _ref2 = _context.sent;
+                data = _ref2.data;
+                dispatch(getCart(data));
+                _context.next = 11;
                 break;
 
-              case 7:
-                _context.prev = 7;
+              case 8:
+                _context.prev = 8;
                 _context.t0 = _context["catch"](0);
                 console.log('Can not retrieve cart', _context.t0);
 
-              case 10:
+              case 11:
               case "end":
                 return _context.stop();
             }
           }
-        }, _callee, null, [[0, 7]]);
+        }, _callee, null, [[0, 8]]);
       }));
 
       return function (_x) {
@@ -1407,55 +1372,64 @@ var fetchCart = function fetchCart(userId) {
     }()
   );
 };
-var editCart = function editCart(userId, newCart) {
-  return (
-    /*#__PURE__*/
-    function () {
-      var _ref2 = _asyncToGenerator(
-      /*#__PURE__*/
-      regeneratorRuntime.mark(function _callee2(dispatch) {
-        return regeneratorRuntime.wrap(function _callee2$(_context2) {
-          while (1) {
-            switch (_context2.prev = _context2.next) {
-              case 0:
-                _context2.prev = 0;
-                console.log('this is my thunks');
-                _context2.next = 4;
-                return axios__WEBPACK_IMPORTED_MODULE_0___default.a.put("/api/cart/".concat(userId), newCart);
-
-              case 4:
-                console.log(newCart);
-                dispatch(updateCart(newCart));
-                _context2.next = 11;
-                break;
-
-              case 8:
-                _context2.prev = 8;
-                _context2.t0 = _context2["catch"](0);
-                console.log('Can not update cart', _context2.t0);
-
-              case 11:
-              case "end":
-                return _context2.stop();
-            }
-          }
-        }, _callee2, null, [[0, 8]]);
-      }));
-
-      return function (_x2) {
-        return _ref2.apply(this, arguments);
-      };
-    }()
-  );
-};
-var addToCartThunk = function addToCartThunk(orderId, item) {
+var addToCartThunk = function addToCartThunk(userId, productId) {
   return (
     /*#__PURE__*/
     function () {
       var _ref3 = _asyncToGenerator(
       /*#__PURE__*/
-      regeneratorRuntime.mark(function _callee3(dispatch) {
+      regeneratorRuntime.mark(function _callee2(dispatch) {
         var _ref4, data;
+
+        return regeneratorRuntime.wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                _context2.prev = 0;
+                _context2.next = 3;
+                return axios__WEBPACK_IMPORTED_MODULE_0___default.a.post("/api/cart/add", {
+                  userId: userId,
+                  productId: productId
+                });
+
+              case 3:
+                _context2.next = 5;
+                return axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("/api/cart/".concat(userId));
+
+              case 5:
+                _ref4 = _context2.sent;
+                data = _ref4.data;
+                dispatch(addToCart(data));
+                _context2.next = 13;
+                break;
+
+              case 10:
+                _context2.prev = 10;
+                _context2.t0 = _context2["catch"](0);
+                console.log('add to cart thunk error: ', _context2.t0);
+
+              case 13:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2, null, [[0, 10]]);
+      }));
+
+      return function (_x2) {
+        return _ref3.apply(this, arguments);
+      };
+    }()
+  );
+};
+var deleteFromCartThunk = function deleteFromCartThunk(userId, product) {
+  return (
+    /*#__PURE__*/
+    function () {
+      var _ref5 = _asyncToGenerator(
+      /*#__PURE__*/
+      regeneratorRuntime.mark(function _callee3(dispatch) {
+        var _ref6, data;
 
         return regeneratorRuntime.wrap(function _callee3$(_context3) {
           while (1) {
@@ -1463,81 +1437,76 @@ var addToCartThunk = function addToCartThunk(orderId, item) {
               case 0:
                 _context3.prev = 0;
                 _context3.next = 3;
-                return axios__WEBPACK_IMPORTED_MODULE_0___default.a.put("/api/cart/".concat(orderId), item);
+                return axios__WEBPACK_IMPORTED_MODULE_0___default.a.post("/api/cart/delete", {
+                  userId: userId,
+                  product: product
+                });
 
               case 3:
-                _ref4 = _context3.sent;
-                data = _ref4.data;
+                _context3.next = 5;
+                return axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("/api/cart/".concat(userId));
 
-                if (data) {
-                  dispatch(addToCart(data));
-                }
-
-                _context3.next = 11;
+              case 5:
+                _ref6 = _context3.sent;
+                data = _ref6.data;
+                dispatch(deleteFromCart(data));
+                _context3.next = 13;
                 break;
 
-              case 8:
-                _context3.prev = 8;
+              case 10:
+                _context3.prev = 10;
                 _context3.t0 = _context3["catch"](0);
                 console.log('add to cart thunk error: ', _context3.t0);
 
-              case 11:
+              case 13:
               case "end":
                 return _context3.stop();
             }
           }
-        }, _callee3, null, [[0, 8]]);
+        }, _callee3, null, [[0, 10]]);
       }));
 
       return function (_x3) {
-        return _ref3.apply(this, arguments);
+        return _ref5.apply(this, arguments);
       };
     }()
   );
 };
-var deleteFromCartThunk = function deleteFromCartThunk(orderId, item) {
+var checkoutFromCartThunk = function checkoutFromCartThunk(userId) {
   return (
     /*#__PURE__*/
     function () {
-      var _ref5 = _asyncToGenerator(
+      var _ref7 = _asyncToGenerator(
       /*#__PURE__*/
       regeneratorRuntime.mark(function _callee4(dispatch) {
-        var _ref6, data;
-
         return regeneratorRuntime.wrap(function _callee4$(_context4) {
           while (1) {
             switch (_context4.prev = _context4.next) {
               case 0:
                 _context4.prev = 0;
                 _context4.next = 3;
-                return axios__WEBPACK_IMPORTED_MODULE_0___default.a["delete"]("/api/cart/".concat(orderId), item);
+                return axios__WEBPACK_IMPORTED_MODULE_0___default.a.post("/api/cart/checkout", userId);
 
               case 3:
-                _ref6 = _context4.sent;
-                data = _ref6.data;
-
-                if (data) {
-                  dispatch(deleteFromCart(data));
-                }
-
-                _context4.next = 11;
+                dispatch(checkoutFromCart({}));
+                _context4.next = 9;
                 break;
 
-              case 8:
-                _context4.prev = 8;
+              case 6:
+                _context4.prev = 6;
                 _context4.t0 = _context4["catch"](0);
-                console.log('add to cart thunk error: ', _context4.t0);
+                console.log('unable to checkout: ', _context4.t0);
 
-              case 11:
+              case 9:
               case "end":
                 return _context4.stop();
             }
           }
-        }, _callee4, null, [[0, 8]]);
+        }, _callee4, null, [[0, 6]]);
       }));
 
       return function (_x4) {
-        return _ref5.apply(this, arguments);
+        return _ref7.apply(this, arguments);
       };
     }()
   );
@@ -1554,11 +1523,13 @@ var defaultCart = {}; //REDUCER
       return action.cart;
 
     case ADD_TO_CART:
-      return [].concat(_toConsumableArray(state), [action.item]);
-
-    case UPDATE_CART:
-      console.log('updating cart');
       return action.newCart;
+
+    case DELETE_FROM_CART:
+      return action.editedCart;
+
+    case CHECKOUT_FROM_CART:
+      return action.emptyCart;
 
     default:
       return state;
