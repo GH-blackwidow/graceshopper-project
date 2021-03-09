@@ -1,12 +1,25 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import UpdateCart from './UpdateCart'
-import {deleteFromCartThunk} from '../store/Cart'
+import {
+  deleteFromCartThunk,
+  addToCartThunk,
+  decrementFromCartThunk
+} from '../store/Cart'
 
 class CartData extends React.Component {
   constructor(props) {
     super(props)
     this.state = {}
+    this.handleIncrement = this.handleIncrement.bind(this)
+    this.handleDecrement = this.handleDecrement.bind(this)
+  }
+  handleIncrement(evt) {
+    evt.preventDefault()
+    this.props.addToCartThunk(this.props.user.id, evt.target.name)
+  }
+  handleDecrement(evt) {
+    evt.preventDefault()
+    this.props.decrementFromCartThunk(this.props.user.id, evt.target.name)
   }
   render() {
     const {product, user} = this.props
@@ -19,9 +32,27 @@ class CartData extends React.Component {
     return (
       <div id="cart">
         <h3>{product.name}</h3>
+        <img src={product.imgUrl} alt={product.name} style={{width: '100px'}} />
         <h4>Price: ${product.price}</h4>
-        <h4>Quantity:{quantity}</h4>
-        {/* <UpdateCart /> */}
+        <div>
+          <button
+            type="button"
+            onClick={evt => this.handleIncrement(evt)}
+            className="button"
+            name={product.id}
+          >
+            +
+          </button>
+          <h4>Quantity:{quantity}</h4>
+          <button
+            type="button"
+            onClick={evt => this.handleDecrement(evt)}
+            className="button"
+            name={product.id}
+          >
+            -
+          </button>
+        </div>
         <button
           type="submit"
           onClick={() =>
@@ -47,7 +78,11 @@ const mapState = state => {
 
 const mapDispatch = dispatch => ({
   deleteFromCartThunk: (orderId, itemId) =>
-    dispatch(deleteFromCartThunk(orderId, itemId))
+    dispatch(deleteFromCartThunk(orderId, itemId)),
+  addToCartThunk: (userId, productId) =>
+    dispatch(addToCartThunk(userId, productId)),
+  decrementFromCartThunk: (userId, productId) =>
+    dispatch(decrementFromCartThunk(userId, productId))
 })
 
 export default connect(mapState, mapDispatch)(CartData)
