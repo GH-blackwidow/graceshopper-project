@@ -1,6 +1,5 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import UpdateCart from './UpdateCart'
 import {
   deleteFromCartThunk,
   addToCartThunk,
