@@ -19,6 +19,7 @@ class CartData extends React.Component {
     return (
       <div id="cart">
         <h3>{product.name}</h3>
+        <img src={product.imgUrl} alt={product.name} style={{width: '100px'}} />
         <h4>Price: ${product.price}</h4>
         <h4>Quantity:{quantity}</h4>
         {/* <UpdateCart /> */}

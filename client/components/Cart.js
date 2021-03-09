@@ -13,24 +13,25 @@ class Cart extends React.Component {
   componentDidMount() {
     this.props.fetchCart(this.props.user.id)
   }
-  // removes the whole cart(button or method)
-  // clearCart = () => {}
-  // handleCheckout = () => {
-  //   this.props.cart.isCurrent = false
-  //   this.props.user.id
-  //     ? this.props.editCart(this.props.user, this.props.cart)
-  //     : this.props.editCart(null, {})
-  //   window.location.href = '/checkout'
-  // }
 
   render() {
     const {cart} = this.props
     const products = cart.products || []
+
+    let subTotal = 0
+    if (products.length !== 0) {
+      subTotal = products
+        .map(product => product.orderProducts.quantity * product.price)
+        .reduce((a, b) => a + b, 0)
+        .math.floor()
+    }
+
     const cartInfo = (
       <div>
         {products.map(product => (
           <CartData product={product} key={product.id} />
         ))}
+        <h4>Total: {subTotal}</h4>
         <div>
           <button type="submit" onClick={this.handleCheckout}>
             Checkout
@@ -40,9 +41,11 @@ class Cart extends React.Component {
     )
     let cartDisplay =
       products.length === 0 ? <p>Your cart is empty</p> : cartInfo
+    console.log('products--->', products)
+
     return (
       <div>
-        <h2>Your Cart</h2>
+        <h2>My Cart</h2>
         {cartDisplay}
       </div>
     )
