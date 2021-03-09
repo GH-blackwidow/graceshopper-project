@@ -28,7 +28,6 @@ class Cart extends React.Component {
           .reduce((a, b) => a + b, 0)
       ).toFixed(2)
     }
-
     const cartInfo = (
       <div>
         {products.map(product => (
