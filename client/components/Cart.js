@@ -23,7 +23,6 @@ class Cart extends React.Component {
       subTotal = products
         .map(product => product.orderProducts.quantity * product.price)
         .reduce((a, b) => a + b, 0)
-        .math.floor()
     }
 
     const cartInfo = (
