@@ -6,9 +6,8 @@ import {auth} from '../store'
 /**
  * COMPONENT
  */
-const AuthForm = props => {
+const LoginAuthForm = props => {
   const {name, displayName, handleSubmit, error} = props
-
   return (
     <div>
       <form onSubmit={handleSubmit} name={name}>
@@ -23,6 +22,39 @@ const AuthForm = props => {
             <small>Password</small>
           </label>
           <input name="password" type="password" />
+        </div>
+        <div>
+          <button type="submit">{displayName}</button>
+        </div>
+        {error && error.response && <div> {error.response.data} </div>}
+      </form>
+      {/* <a href="/auth/google">{displayName} with Google</a> */}
+    </div>
+  )
+}
+
+const SignUpAuthForm = props => {
+  const {name, displayName, handleSubmit, error} = props
+  return (
+    <div>
+      <form onSubmit={handleSubmit} name={name}>
+        <div>
+          <label htmlFor="email">
+            <small>Email</small>
+          </label>
+          <input name="email" type="text" />
+        </div>
+        <div>
+          <label htmlFor="password">
+            <small>Password</small>
+          </label>
+          <input name="password" type="password" />
+        </div>
+        <div>
+          <label htmlFor="DOB">
+            <small>Date of Birth</small>
+          </label>
+          <input name="DOB" type="" />
         </div>
         <div>
           <button type="submit">{displayName}</button>
@@ -69,13 +101,20 @@ const mapDispatch = dispatch => {
   }
 }
 
-export const Login = connect(mapLogin, mapDispatch)(AuthForm)
-export const Signup = connect(mapSignup, mapDispatch)(AuthForm)
+export const Login = connect(mapLogin, mapDispatch)(LoginAuthForm)
+export const Signup = connect(mapSignup, mapDispatch)(SignUpAuthForm)
 
 /**
  * PROP TYPES
  */
-AuthForm.propTypes = {
+LoginAuthForm.propTypes = {
+  name: PropTypes.string.isRequired,
+  displayName: PropTypes.string.isRequired,
+  handleSubmit: PropTypes.func.isRequired,
+  error: PropTypes.object
+}
+
+SignUpAuthForm.propTypes = {
   name: PropTypes.string.isRequired,
   displayName: PropTypes.string.isRequired,
   handleSubmit: PropTypes.func.isRequired,
