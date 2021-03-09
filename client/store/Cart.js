@@ -52,14 +52,14 @@ export const addToCartThunk = (userId, productId) => {
     }
   }
 }
-export const decrementFromCartThunk = (userId, product) => {
+export const decrementFromCartThunk = (userId, productId) => {
   return async dispatch => {
     try {
-      await axios.post(`/api/cart/decrement`, {userId, product})
+      await axios.post(`/api/cart/decrement`, {userId, productId})
       const {data} = await axios.get(`/api/cart/${userId}`)
       dispatch(decrementFromCart(data))
     } catch (err) {
-      console.log('add to cart thunk error: ', err)
+      console.log('delete from cart thunk error: ', err)
     }
   }
 }
