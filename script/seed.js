@@ -67,8 +67,8 @@ const orders = [...Array(10)].map(() => ({
   // quantity: faker.random.number({min: 1, max: 10}),
   // shippingCost: (Math.random() * (5.0 - 1.0 + 1.0) + 1.0).toFixed(2),
   // shippingAddress: faker.address.streetAddress(),
-  // userId: faker.random.number({min: 1, max: users.length}),
-  // productId: faker.random.number({min: 1, max: products.length}),
+  userId: faker.random.number({min: 1, max: users.length}),
+  productId: faker.random.number({min: 1, max: products.length})
 }))
 
 const orderProducts = [...Array(10)].map(() => ({

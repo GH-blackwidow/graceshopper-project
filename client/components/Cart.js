@@ -1,29 +1,33 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {Link} from 'react-router-dom'
 import CartData from './CartData'
-import Checkout from './Checkout'
 import {fetchCart, checkoutFromCartThunk} from '../store/Cart'
 
 class Cart extends React.Component {
   constructor(props) {
     super(props)
     this.state = {}
+    this.handleCheckout = this.handleCheckout.bind(this)
   }
   componentDidMount() {
     this.props.fetchCart(this.props.user.id)
   }
-
+  handleCheckout() {
+    this.props.checkoutFromCartThunk(this.props.user.id)
+    this.props.history.push({
+      pathname: '/cart/checkout'
+    })
+  }
   render() {
     const {cart} = this.props
     const products = cart.products || []
-
     let subTotal = 0
     if (products.length !== 0) {
-      subTotal = products
-        .map(product => product.orderProducts.quantity * product.price)
-        .reduce((a, b) => a + b, 0)
-        .math.floor()
+      subTotal = parseFloat(
+        products
+          .map(product => product.orderProducts.quantity * product.price)
+          .reduce((a, b) => a + b, 0)
+      ).toFixed(2)
     }
 
     const cartInfo = (
@@ -41,7 +45,6 @@ class Cart extends React.Component {
     )
     let cartDisplay =
       products.length === 0 ? <p>Your cart is empty</p> : cartInfo
-    console.log('products--->', products)
 
     return (
       <div>
