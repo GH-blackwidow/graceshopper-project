@@ -15,14 +15,18 @@ class Cart extends React.Component {
   }
 
   render() {
-    const {cart} = this.props
-    const products = cart.products || []
-
+    const cart = this.props.cart.products || []
+    cart.sort(function(a, b) {
+      return a.id - b.id
+    })
+    const products = cart || []
     let subTotal = 0
     if (products.length !== 0) {
-      subTotal = products
-        .map(product => product.orderProducts.quantity * product.price)
-        .reduce((a, b) => a + b, 0)
+      subTotal = parseFloat(
+        products
+          .map(product => product.orderProducts.quantity * product.price)
+          .reduce((a, b) => a + b, 0)
+      ).toFixed(2)
     }
 
     const cartInfo = (
@@ -40,7 +44,6 @@ class Cart extends React.Component {
     )
     let cartDisplay =
       products.length === 0 ? <p>Your cart is empty</p> : cartInfo
-    console.log('products--->', products)
 
     return (
       <div>
