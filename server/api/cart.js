@@ -52,19 +52,15 @@ router.get('/:userId', async (req, res, next) => {
       res.json(req.session.cart)
     } else {
       const cart = await cartItem(userId)
-      res.json(cart)
+      if (!cart) {
+        const newOrder = await Order.create({
+          userId: userId
+        })
+        res.json(newOrder)
+      } else {
+        res.json(cart)
+      }
     }
-  } catch (error) {
-    next(error)
-  }
-})
-
-//creates a new cart
-//req.body: userId, productId
-router.post('/newcart', async (req, res, next) => {
-  try {
-    const {userId, productId} = req.body
-    req.session.cart = [{productId: productId, quantity: 1}] //creates a new cart session
   } catch (error) {
     next(error)
   }
@@ -143,16 +139,3 @@ router.post('/checkout', async (req, res, next) => {
     next(error)
   }
 })
-
-//old route, delete once everything is set up
-//route to update cart in total (add & deletes & creation)
-// router.put('/:userId', async (req, res, next) => {
-//   try {
-//     req.session.cart = req.body //update session with new cart data
-//     const {userId} = req.params
-//     //get current order
-//     const currentOrder = await cartItem(4)
-//   } catch (error) {
-//     next(error)
-//   }
-// })
