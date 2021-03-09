@@ -21,5 +21,6 @@ form div {
 }
 
 .logo {
-  background-image: url(client/components/beershopper.png);
+  background-image: url(beershopper.png);
+  width: 200px;
 }
