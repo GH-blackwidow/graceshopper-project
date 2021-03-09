@@ -43,7 +43,6 @@ class Cart extends React.Component {
     )
     let cartDisplay =
       products.length === 0 ? <p>Your cart is empty</p> : cartInfo
-    console.log('products--->', products)
 
     return (
       <div>

@@ -278,21 +278,32 @@ function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
+        }).reduce(function (a, b) {
+          return a + b;
+        }, 0)).toFixed(2);
+      }
+
+      var cartInfo = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, products.map(function (product) {
+        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_CartData__WEBPACK_IMPORTED_MODULE_3__["default"], {
+          product: product,
+          key: product.id
+        });
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h4", null, "Total: ", subTotal), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+        type: "submit",
+        onClick: this.handleCheckout
+      }, "Checkout")));
+      var cartDisplay = products.length === 0 ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "Your cart is empty") : cartInfo;
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", null, "My Cart"), cartDisplay);
     }
 
-  return Cart;
 }(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
 
-var mapState = function mapState(state) {
   return {
     user: state.user,
-    cart: state.cart
   };
 };
-
 var mapDispatch = function mapDispatch(dispatch) {
     fetchCart: function fetchCart(userId) {
-      return dispatch(Object(_store_Cart__WEBPACK_IMPORTED_MODULE_5__["fetchCart"])(userId));
     },
     checkoutFromCartThunk: function checkoutFromCartThunk(userId) {
       return dispatch(Object(_store_Cart__WEBPACK_IMPORTED_MODULE_5__["checkoutFromCartThunk"])(userId));
@@ -505,8 +516,11 @@ function (_React$Component) {
           width: '100px'
         }
 <<<<<<< HEAD
+<<<<<<< HEAD
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h4", null, "Price: $", product.price), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h4", null, "Quantity:", quantity), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
 =======
+=======
+>>>>>>> 872d1682a817b0cb35bcb23a54a63a5d378c4eba
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h4", null, "Price: $", product.price), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
         type: "button",
         onClick: function onClick(evt) {
@@ -522,7 +536,10 @@ function (_React$Component) {
         className: "button",
         name: product.id
       }, "-")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+<<<<<<< HEAD
 >>>>>>> F-E
+=======
+>>>>>>> 872d1682a817b0cb35bcb23a54a63a5d378c4eba
         type: "submit",
         onClick: function onClick() {
           return _this2.props.deleteFromCartThunk(product.orderProducts.orderId, product.id, user.id);
@@ -546,6 +563,7 @@ var mapDispatch = function mapDispatch(dispatch) {
 <<<<<<< HEAD
     deleteFromCartThunk: function deleteFromCartThunk(orderId, itemId, userId) {
       return dispatch(Object(_store_Cart__WEBPACK_IMPORTED_MODULE_3__["deleteFromCartThunk"])(orderId, itemId, userId));
+<<<<<<< HEAD
 =======
     deleteFromCartThunk: function deleteFromCartThunk(orderId, itemId) {
       return dispatch(Object(_store_Cart__WEBPACK_IMPORTED_MODULE_2__["deleteFromCartThunk"])(orderId, itemId));
@@ -556,6 +574,14 @@ var mapDispatch = function mapDispatch(dispatch) {
     decrementFromCartThunk: function decrementFromCartThunk(userId, productId) {
       return dispatch(Object(_store_Cart__WEBPACK_IMPORTED_MODULE_2__["decrementFromCartThunk"])(userId, productId));
 >>>>>>> F-E
+=======
+    },
+    addToCartThunk: function addToCartThunk(userId, productId) {
+      return dispatch(Object(_store_Cart__WEBPACK_IMPORTED_MODULE_3__["addToCartThunk"])(userId, productId));
+    },
+    decrementFromCartThunk: function decrementFromCartThunk(userId, productId) {
+      return dispatch(Object(_store_Cart__WEBPACK_IMPORTED_MODULE_3__["decrementFromCartThunk"])(userId, productId));
+>>>>>>> 872d1682a817b0cb35bcb23a54a63a5d378c4eba
     }
   };
 };

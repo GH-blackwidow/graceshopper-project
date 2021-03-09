@@ -1,5 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
+import UpdateCart from './UpdateCart'
 import {
   deleteFromCartThunk,
   addToCartThunk,
@@ -21,6 +22,7 @@ class CartData extends React.Component {
     evt.preventDefault()
     this.props.decrementFromCartThunk(this.props.user.id, evt.target.name)
   }
+
   render() {
     const {product, user} = this.props
     const {products} = this.props.cart || []
@@ -77,8 +79,8 @@ const mapState = state => {
 }
 
 const mapDispatch = dispatch => ({
-  deleteFromCartThunk: (orderId, itemId) =>
-    dispatch(deleteFromCartThunk(orderId, itemId)),
+  deleteFromCartThunk: (orderId, itemId, userId) =>
+    dispatch(deleteFromCartThunk(orderId, itemId, userId)),
   addToCartThunk: (userId, productId) =>
     dispatch(addToCartThunk(userId, productId)),
   decrementFromCartThunk: (userId, productId) =>

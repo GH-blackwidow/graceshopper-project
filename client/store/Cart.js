@@ -63,6 +63,7 @@ export const decrementFromCartThunk = (userId, productId) => {
     }
   }
 }
+
 export const checkoutFromCartThunk = userId => {
   return async dispatch => {
     try {
