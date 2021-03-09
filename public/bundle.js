@@ -889,7 +889,7 @@ __webpack_require__.r(__webpack_exports__);
  * COMPONENT
  */
 
-var AuthForm = function AuthForm(props) {
+var LoginAuthForm = function LoginAuthForm(props) {
   var name = props.name,
       displayName = props.displayName,
       handleSubmit = props.handleSubmit,
@@ -907,6 +907,34 @@ var AuthForm = function AuthForm(props) {
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("small", null, "Password")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
     name: "password",
     type: "password"
+  })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+    type: "submit"
+  }, displayName)), error && error.response && react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, " ", error.response.data, " ")));
+};
+
+var SignUpAuthForm = function SignUpAuthForm(props) {
+  var name = props.name,
+      displayName = props.displayName,
+      handleSubmit = props.handleSubmit,
+      error = props.error;
+  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", {
+    onSubmit: handleSubmit,
+    name: name
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
+    htmlFor: "email"
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("small", null, "Email")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+    name: "email",
+    type: "text"
+  })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
+    htmlFor: "password"
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("small", null, "Password")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+    name: "password",
+    type: "password"
+  })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
+    htmlFor: "DOB"
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("small", null, "Date of Birth")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+    name: "DOB",
+    type: ""
   })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
     type: "submit"
   }, displayName)), error && error.response && react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, " ", error.response.data, " ")));
@@ -948,13 +976,19 @@ var mapDispatch = function mapDispatch(dispatch) {
   };
 };
 
-var Login = Object(react_redux__WEBPACK_IMPORTED_MODULE_1__["connect"])(mapLogin, mapDispatch)(AuthForm);
-var Signup = Object(react_redux__WEBPACK_IMPORTED_MODULE_1__["connect"])(mapSignup, mapDispatch)(AuthForm);
+var Login = Object(react_redux__WEBPACK_IMPORTED_MODULE_1__["connect"])(mapLogin, mapDispatch)(LoginAuthForm);
+var Signup = Object(react_redux__WEBPACK_IMPORTED_MODULE_1__["connect"])(mapSignup, mapDispatch)(SignUpAuthForm);
 /**
  * PROP TYPES
  */
 
-AuthForm.propTypes = {
+LoginAuthForm.propTypes = {
+  name: prop_types__WEBPACK_IMPORTED_MODULE_2___default.a.string.isRequired,
+  displayName: prop_types__WEBPACK_IMPORTED_MODULE_2___default.a.string.isRequired,
+  handleSubmit: prop_types__WEBPACK_IMPORTED_MODULE_2___default.a.func.isRequired,
+  error: prop_types__WEBPACK_IMPORTED_MODULE_2___default.a.object
+};
+SignUpAuthForm.propTypes = {
   name: prop_types__WEBPACK_IMPORTED_MODULE_2___default.a.string.isRequired,
   displayName: prop_types__WEBPACK_IMPORTED_MODULE_2___default.a.string.isRequired,
   handleSubmit: prop_types__WEBPACK_IMPORTED_MODULE_2___default.a.func.isRequired,
