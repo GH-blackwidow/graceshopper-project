@@ -287,7 +287,7 @@ function (_React$Component) {
           return product.orderProducts.quantity * product.price;
         }).reduce(function (a, b) {
           return a + b;
-        }, 0).math.floor();
+        }, 0);
       }
 
       var cartInfo = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, products.map(function (product) {
@@ -539,8 +539,8 @@ var mapState = function mapState(state) {
 
 var mapDispatch = function mapDispatch(dispatch) {
   return {
-    deleteFromCartThunk: function deleteFromCartThunk(orderId, itemId) {
-      return dispatch(Object(_store_Cart__WEBPACK_IMPORTED_MODULE_3__["deleteFromCartThunk"])(orderId, itemId));
+    deleteFromCartThunk: function deleteFromCartThunk(orderId, itemId, userId) {
+      return dispatch(Object(_store_Cart__WEBPACK_IMPORTED_MODULE_3__["deleteFromCartThunk"])(orderId, itemId, userId));
     }
   };
 };

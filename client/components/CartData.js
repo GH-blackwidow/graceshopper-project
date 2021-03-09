@@ -47,8 +47,8 @@ const mapState = state => {
 }
 
 const mapDispatch = dispatch => ({
-  deleteFromCartThunk: (orderId, itemId) =>
-    dispatch(deleteFromCartThunk(orderId, itemId))
+  deleteFromCartThunk: (orderId, itemId, userId) =>
+    dispatch(deleteFromCartThunk(orderId, itemId, userId))
 })
 
 export default connect(mapState, mapDispatch)(CartData)
