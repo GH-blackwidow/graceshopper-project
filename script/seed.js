@@ -47,14 +47,6 @@ const products = [
   }
 ]
 
-//dummy date for beer:
-//const fakerProduct = [...Array(10)].map((product) => ({
-//   name: faker.lorem.word(),
-//   alcoholContent: faker.random.float({min: 2.0, max: 4.5}),
-//   ounces: 12,
-//   price: faker.commerce.price({min: 1.59, max: 4.99}),
-// }))
-
 const users = [...Array(10)].map(() => ({
   name: faker.name.firstName(),
   email: faker.internet.email(),
@@ -64,11 +56,8 @@ const users = [...Array(10)].map(() => ({
 }))
 
 const orders = [...Array(10)].map(() => ({
-  // quantity: faker.random.number({min: 1, max: 10}),
-  // shippingCost: (Math.random() * (5.0 - 1.0 + 1.0) + 1.0).toFixed(2),
-  // shippingAddress: faker.address.streetAddress(),
-  // userId: faker.random.number({min: 1, max: users.length}),
-  // productId: faker.random.number({min: 1, max: products.length}),
+  userId: faker.random.number({min: 1, max: users.length}),
+  productId: faker.random.number({min: 1, max: products.length})
 }))
 
 const orderProducts = [...Array(10)].map(() => ({

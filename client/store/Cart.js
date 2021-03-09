@@ -67,8 +67,9 @@ export const decrementFromCartThunk = (userId, productId) => {
 export const checkoutFromCartThunk = userId => {
   return async dispatch => {
     try {
+      const emptyCart = {}
       await axios.post(`/api/cart/checkout`, userId)
-      dispatch(checkoutFromCart({}))
+      dispatch(checkoutFromCart(emptyCart))
     } catch (err) {
       console.log('unable to checkout: ', err)
     }
