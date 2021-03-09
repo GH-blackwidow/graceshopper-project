@@ -19,3 +19,8 @@ form div {
   margin: 1em;
   display: inline-block;
 }
+
+.logo {
+  background-image: url(beershopper.png);
+  width: 200px;
+}
