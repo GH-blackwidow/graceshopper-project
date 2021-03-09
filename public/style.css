@@ -1,5 +1,5 @@
 body {
-  font-family: sans-serif;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
 
 a {
@@ -13,6 +13,9 @@ label {
 nav a {
   display: inline-block;
   margin: 1em;
+  color: red;
+  border: 5px solid black;
+  padding: 3px;
 }
 
 form div {
@@ -20,7 +23,37 @@ form div {
   display: inline-block;
 }
 
-.logo {
-  background-image: url(beershopper.png);
-  width: 200px;
+#products {
+  border: 2px solid red;
+  align-items: stretch;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-content: space-between;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+img {
+  width: 150px;
+  height: 275px;
+  border: 1px solid red;
+  border-radius: 4px;
+  padding: 5px;
+}
+
+button {
+  border-radius: 30px;
+  text-transform: uppercase;
+  color: white;
+  background: red;
+}
+
+#beershopper {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 450px;
+  height: 250px;
+  border: white;
 }
