@@ -28,6 +28,10 @@ const User = db.define('users', {
   },
   password: {
     type: Sequelize.STRING,
+    allowNull: false,
+    validate: {
+      notEmpty: true
+    },
     get() {
       return () => this.getDataValue('password')
     }
