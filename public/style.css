@@ -13,18 +13,52 @@ label {
 nav a {
   display: inline-block;
   margin: 1em;
-  color: red;
-  border: 5px solid black;
+  color: white;
+  background-color: red;
   padding: 3px;
+}
+nav {
+  background-color: red;
+  display: flex;
+}
+#teamName {
+  position: absolute;
+  right: 0;
+  color: white;
 }
 
 form div {
   margin: 1em;
   display: inline-block;
 }
+#home-page {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.type-img {
+  display: flex;
+  justify-content: space-around;
+  border-radius: 30%;
+  padding: 5px;
+}
+#home-page-name {
+  text-align: center;
+}
+
+.product-img {
+  width: 150px;
+  height: 275px;
+  border-radius: 10px;
+  padding: 5px;
+}
+.product-name {
+  overflow-wrap: break-word;
+}
 
 #products {
-  border: 2px solid red;
+  border: 2px;
   align-items: stretch;
   display: flex;
   flex-direction: row;
@@ -32,14 +66,6 @@ form div {
   justify-content: center;
   align-content: space-between;
   font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-}
-
-img {
-  width: 150px;
-  height: 275px;
-  border: 1px solid red;
-  border-radius: 4px;
-  padding: 5px;
 }
 
 button {
@@ -56,4 +82,24 @@ button {
   width: 450px;
   height: 250px;
   border: white;
+}
+#single-product {
+  align-content: center;
+  text-align: center;
+  margin: auto;
+  width: 50%;
+  padding: 10px;
+}
+.cart {
+  /* display: flex;
+  flex-direction: column; */
+  /* align-content: center; */
+  text-align: center;
+  margin: auto;
+  width: 50%;
+  padding: 10px;
+  border-style: ridge;
+}
+.cart-text {
+  text-align: center;
 }

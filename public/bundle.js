@@ -174,7 +174,7 @@ function (_React$Component) {
       var products = this.props.products.products || [];
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         id: "product-title"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, "Beer Selection"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, "Beer Selection"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         id: "products"
       }, products.map(function (product) {
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -190,7 +190,9 @@ function (_React$Component) {
           }, {
             height: '200px'
           })
-        }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, product.name), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h4", null, "Price", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("strong", null, ":", product.price)), "View"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_CartButton__WEBPACK_IMPORTED_MODULE_4__["default"], {
+        }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", {
+          id: "product-name"
+        }, product.name), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h4", null, "Price", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("strong", null, ":", product.price)), "View"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_CartButton__WEBPACK_IMPORTED_MODULE_4__["default"], {
           user: _this.props.user,
           productId: product.id
         }));
@@ -312,12 +314,16 @@ function (_React$Component) {
           product: product,
           key: product.id
         });
-      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h4", null, "Total: ", subTotal), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "cart"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h4", null, "Total: ", subTotal), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
         type: "submit",
         onClick: this.handleCheckout
       }, "Checkout")));
       var cartDisplay = products.length === 0 ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "Your cart is empty") : cartInfo;
-      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", null, "My Cart"), cartDisplay);
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", {
+        className: "cart-text"
+      }, "Cart"), cartDisplay);
     }
   }]);
 
@@ -539,14 +545,16 @@ function (_React$Component) {
         }
       });
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        id: "cart"
+        className: "cart"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, product.name), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
         src: product.imgUrl,
         alt: product.name,
         style: {
           width: '100px'
         }
-      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h4", null, "Price: $", product.price), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h4", null, "Price: $", product.price), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "increment-buttons"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
         type: "button",
         onClick: function onClick(evt) {
           return _this2.handleIncrement(evt);
@@ -640,12 +648,59 @@ var Checkout = function Checkout() {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
+
 
 
 function HomePage() {
   return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "logo"
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, "Welcome to our Grace Hopper homepage! "), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, "The hoppiest place on the web! "));
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    id: "product-title"
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h4", {
+    id: "home-page-name"
+  }, "Types of Beers"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    id: "home-page"
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    id: "types"
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
+    to: "/products"
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+    className: "type-img",
+    src: "https://www.americancraftbeer.com/wp-content/uploads/2018/03/BrewDog-Pink-IPA.jpg",
+    alt: "IPAs",
+    style: ({
+      width: '200px'
+    }, {
+      height: '200px'
+    })
+  }), "IPAs")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    id: "types"
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
+    to: "/products"
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+    className: "type-img",
+    src: "https://cdn-a.william-reed.com/var/wrbm_gb_food_pharma/storage/images/publications/food-beverage-nutrition/beveragedaily.com/news/markets/india-pale-lagers-carve-out-a-niche-in-craft-beer/9160143-1-eng-GB/India-Pale-Lagers-carve-out-a-niche-in-craft-beer_wrbm_large.jpg",
+    alt: "Lagers",
+    style: ({
+      width: '200px'
+    }, {
+      height: '200px'
+    })
+  }), "Lagers")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    id: "types"
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
+    to: "/products"
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+    className: "type-img",
+    src: "https://s3-ap-southeast-2.amazonaws.com/www.beerandbrewer.com/wp-content/uploads/sites/2/2019/07/04163928/Stout-pic.jpg",
+    alt: "Stouts",
+    style: ({
+      width: '200px'
+    }, {
+      height: '200px'
+    })
+  }), "Stouts")))));
 }
 
 /* harmony default export */ __webpack_exports__["default"] = (HomePage);
@@ -711,16 +766,16 @@ function (_Component) {
       var product = this.props.product || [];
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         id: "single-product"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", null, product.name), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h4", null, "Price:", product.price), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_CartButton__WEBPACK_IMPORTED_MODULE_3__["default"], {
-        user: this.props.user,
-        productId: product.id
-      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h4", null, "Description: "), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "Alcohol Content: ", product.alcoholContent), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "Ounces: ", product.ounces), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
         src: product.imgUrl,
         alt: product.name,
         style: {
           width: '300px'
         }
-      }));
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", null, product.name), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h4", null, "Price:", product.price), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_CartButton__WEBPACK_IMPORTED_MODULE_3__["default"], {
+        user: this.props.user,
+        productId: product.id
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h4", null, "Description: "), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "Alcohol Content: ", product.alcoholContent), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "Ounces: ", product.ounces));
     }
   }]);
 
@@ -955,7 +1010,7 @@ __webpack_require__.r(__webpack_exports__);
 var Navbar = function Navbar(_ref) {
   var handleClick = _ref.handleClick,
       isLoggedIn = _ref.isLoggedIn;
-  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", null, "Beer Shopper by Black Widow"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("nav", null, isLoggedIn ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("nav", null, isLoggedIn ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "menu"
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__["Link"], {
     to: "/"
@@ -974,7 +1029,14 @@ var Navbar = function Navbar(_ref) {
     to: "/login"
   }, "Login"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__["Link"], {
     to: "/signup"
-  }, "Sign Up"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("hr", null));
+  }, "Sign Up")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
+    id: "teamName"
+  }, "Beer Shopper by Black Widow")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("hr", null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+    src: "beershopper.png",
+    width: "450px",
+    height: "300px",
+    id: "beershopper"
+  }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("hr", null));
 };
 /**
  * CONTAINER

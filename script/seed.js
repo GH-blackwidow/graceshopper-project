@@ -22,7 +22,7 @@ const products = [
       'https://d2lnr5mha7bycj.cloudfront.net/product-image/file/large_02cbe056-3367-4ce8-831d-cea75829e6ee.jpeg'
   },
   {
-    name: 'Blue Moon Belgian White Wheat Beer',
+    name: 'Blue Moon',
     alcoholContent: 5.4,
     ounces: 19.02,
     price: 1.99,

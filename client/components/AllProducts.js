@@ -14,7 +14,7 @@ export class AllProducts extends React.Component {
 
     return (
       <div id="product-title">
-        <h1>Beer Selection</h1>
+        <h3>Beer Selection</h3>
         <div id="products">
           {products.map(product => (
             <div key={product.id}>
@@ -25,7 +25,7 @@ export class AllProducts extends React.Component {
                   alt={product.name}
                   style={({width: '200px'}, {height: '200px'})}
                 />
-                <h3>{product.name}</h3>
+                <h3 id="product-name">{product.name}</h3>
                 <h4>
                   Price
                   <strong>:{product.price}</strong>
