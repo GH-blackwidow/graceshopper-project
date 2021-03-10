@@ -43,7 +43,7 @@ const products = [
     ounces: 19.02,
     price: 2.49,
     imgUrl:
-      'https://www.wallywine.com/media/catalog/product/cache/1/image/1800x/9df78eab33525d08d6e5fb8d27136e95/0/0/000714.jpg'
+      'https://d2sochvv0rudri.cloudfront.net/beer_labels/513/corona-light.jpg'
   }
 ]
 
