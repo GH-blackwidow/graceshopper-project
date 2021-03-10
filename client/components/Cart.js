@@ -39,8 +39,8 @@ class Cart extends React.Component {
         {products.map(product => (
           <CartData product={product} key={product.id} />
         ))}
-        <h4>Total: {subTotal}</h4>
-        <div>
+        <div className="cart">
+          <h4>Total: {subTotal}</h4>
           <button type="submit" onClick={this.handleCheckout}>
             Checkout
           </button>
@@ -52,7 +52,7 @@ class Cart extends React.Component {
 
     return (
       <div>
-        <h2>My Cart</h2>
+        <h2 className="cart-text">Cart</h2>
         {cartDisplay}
       </div>
     )

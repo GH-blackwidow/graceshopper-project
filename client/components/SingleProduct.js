@@ -12,13 +12,13 @@ class SingleProduct extends Component {
     const product = this.props.product || []
     return (
       <div id="single-product">
+        <img src={product.imgUrl} alt={product.name} style={{width: '300px'}} />
         <h2>{product.name}</h2>
         <h4>Price:{product.price}</h4>
         <CartButton user={this.props.user} productId={product.id} />
         <h4>Description: </h4>
         <p>Alcohol Content: {product.alcoholContent}</p>
         <p>Ounces: {product.ounces}</p>
-        <img src={product.imgUrl} alt={product.name} style={{width: '300px'}} />
       </div>
     )
   }
