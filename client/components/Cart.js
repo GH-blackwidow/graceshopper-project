@@ -9,11 +9,17 @@ class Cart extends React.Component {
   constructor(props) {
     super(props)
     this.state = {}
+    this.handleCheckout = this.handleCheckout.bind(this)
   }
   componentDidMount() {
     this.props.fetchCart(this.props.user.id)
   }
-
+  handleCheckout() {
+    this.props.checkoutFromCartThunk(this.props.user.id)
+    this.props.history.push({
+      pathname: '/cart/checkout'
+    })
+  }
   render() {
     const cart = this.props.cart.products || []
     cart.sort(function(a, b) {
