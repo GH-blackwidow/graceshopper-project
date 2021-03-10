@@ -128,8 +128,8 @@ router.post('/decrement', async (req, res, next) => {
 //req.body: userId
 router.post('/checkout', async (req, res, next) => {
   try {
-    const {userId} = req.body
-    //if user is signed in
+    const userArray = Object.keys(req.body)
+    const userId = userArray[0]
     if (userId) {
       const currentCart = await cartItem(userId)
       currentCart.update({isCurrent: false})
